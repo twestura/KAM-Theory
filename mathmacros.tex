@@ -1,0 +1,19 @@
+\newcommand{\KAM}{ Let $\rho, \gamma > 0$ be given, and let
+  $h(\bp{q}, \bp{p}) = h_0(\bp{p}) + h_1(\bp{q}, \bp{p})$ be a Hamiltonian, with
+  $h_0, h_1 \in \mathcal{A}_{\rho}$ and $\norm{h}_{\rho} \leq 1$.
+  Suppose the Taylor polynomial of $h_0$ is
+  \begin{equation*}
+    h_0(\bp{p}) = a + \omega\bp{p} + \frac{1}{2} \bp{p} \cdot C \bp{p} +
+    o(|\bp{p}|^2),
+  \end{equation*}
+  with $\omega \in \Omega_{\gamma}$ and $C$ is symmetric and invertible.
+  Then for any $\rho_* \leq \rho$, there exists $\epsilon > 0$, which depends on
+  $C$ and $\gamma$, but not on the remainder term in $o(|\bp{p}|^2)$, such that
+  if $\norm{h_1}_{\rho} \leq \epsilon$, there exists a symplectic mapping $\Phi
+  : A_{\rho_*} \to A_{\rho}$ such that if we set $(\bp{q}, \bp{p}) = \Phi(\bp{Q},
+  \bp{P})$ and $H = h \circ \Phi$, we have
+  \begin{equation*}
+    H(\bp{Q}, \bp{P}) = A + \omega \bp{P} + R(\bp{Q}, \bp{P}),
+  \end{equation*}
+  with $R(\bp{Q}, \bp{P}) \in O(|\bp{P}|^2)$.
+}

@@ -1,6 +1,7 @@
 \documentclass[twoside,letterpaper,10pt]{article}
 
 \usepackage{mystyle}
+\input{mathmacros.tex}
 
 \title{The Kolmogorov Theorem}
 \author{Travis Westura}
@@ -13,38 +14,28 @@
 \section{Introduction}
 \label{sec:introduction}
 
+% I know that I'm not supposed to use a citation in an abstract, but Hubbard
+% did so in his paper, so I guess it is fair game.
 \begin{abstract}
   This paper gives a proof of the Kolmogorov Theorem on the conservation of
   invariant tori.
   We follow the approach given by Hubbard and Ilyashenko in .
-  % TODO write citation.
+  Their proof is similar to the one given by Bennettin, Galgani, Giorgilli, and
+  Strelcyn in , which itself resembles Kolmogorov's original argument.
+  % TODO write citations and confirm correctness of the last claim by rereading
+  % the other paper's abstract.
+  % Also check the spelling of their names and add them to the dictionary.
+  % Do by 4/14.
 \end{abstract}
 
+% TODO Fix up the historical information in the next paragraph
+
+But before moving on, let's take a look at our main goal:
 \begin{thm}[The Kolmogorov Theorem]
   \label{thm:KAM}
-  Let $\rho, \gamma > 0$ be given, and let $h(\bp{q}, \bp{p}) = h_0(\bp{p}) +
-  h_1(\bp{q}, \bp{p})$ be a Hamiltonian, with $h_0, h_1 \in \mathcal{A}_{\rho}$
-  and $\norm{h}_{\rho} \leq 1$.
-  Suppose the Taylor polynomial of $h_0$ is
-  \begin{equation*}
-    h_0(\bp{p}) = a + \omega\bp{p} + \frac{1}{2} \bp{p} \cdot C \bp{p} +
-    o(|\bp{}|^2),
-  \end{equation*}
-  with $\omega \in \Omega_{\gamma}$ and $C$ is symmetric and invertible.
-  Then for any $\rho_* \leq \rho$, there exists $\epsilon > 0$, which depends on
-  $C$ and $\gamma$, but not on the remainder term in $o(|\bp{p}|^2)$, such that
-  if $\norm{h_1}_{\rho} \leq \epsilon$, there exists a symplectic mapping $\Phi
-  : A_{\rho_*} \to A_{\rho}$ such that if we set $(\bp{q}, \bp{p} = \Phi(\bp{Q},
-  \bp{P})$ and $H = h \circ \Phi$, we have
-  \begin{equation*}
-    H(\bp{Q}, \bp{P}) = A + \omega \bp{P} + R(\bp{Q}, \bp{P}),
-  \end{equation*}
-  with $R(\bp{Q}, \bp{P}) \in O(|\bp{P}|^2)$.
+  \KAM
 \end{thm}
-
-\begin{proof}
-  The proof is left as an exercise for the reader.
-\end{proof}
+We will return to this statement after building up some intuition for it.
 
 \end{document}
 

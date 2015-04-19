@@ -1,0 +1,386 @@
+\documentclass{beamer}
+
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage[shortlabels]{enumitem}
+\usepackage{esvect}
+\usepackage{lipsum}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{marginnote}
+\usepackage{subfiles}
+\usepackage{import}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[english]{babel}
+
+\usetheme{Berlin}
+\usecolortheme{beaver}
+
+\setbeamercolor{structure}{fg=darkred}
+
+\renewcommand{\qedsymbol}{\text{QED}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+%\newcommand{\e}{\mathrm{e}}
+%\renewcommand{\i}{\mathrm{i}}
+\renewcommand{\qedsymbol}{\text{QED}}
+
+\DeclareMathOperator{\Real}{Re}
+\DeclareMathOperator{\Imag}{Im}
+
+\newcommand{\bp}[1]{\bm{#1}}
+\newcommand{\bv}[1]{\vv{\bm{#1}}}
+\newcommand{\bd}[1]{\bm{\dot{#1}}}
+\newcommand{\bdd}[1]{\bm{\ddot{#1}}}
+\newcommand{\grad}{\vv{\nabla}}
+\newcommand{\sgrad}{\nabla_{\sigma}}
+
+\newcommand{\genericdel}[4]{%
+  \ifcase#3\relax
+  #1#4#2\or
+  \bigl#1#4\bigr#2\or
+  \Bigl#1#4\Bigr#2\or
+  \biggl#1#4\biggr#2\or
+  \Biggl#1#4\Biggr#2\else
+  \left#1#4\right#2\fi
+}
+\newcommand{\del}[2][-1]{\genericdel(){#1}{#2}}
+\newcommand{\set}[2][-1]{\genericdel\{\}{#1}{#2}}
+\let\cbr\set
+\newcommand{\sbr}[2][-1]{\genericdel[]{#1}{#2}}
+\let\intoo\del
+\let\intcc\sbr
+\newcommand{\intoc}[2][-1]{\genericdel(]{#1}{#2}}
+\newcommand{\intco}[2][-1]{\genericdel[){#1}{#2}}
+\newcommand{\eval}[2][-1]{\genericdel.|{#1}{#2}}
+\newcommand{\envert}[2][-1]{\genericdel||{#1}{#2}}
+\let\abs\envert
+\newcommand{\sVert}[2][0]{%
+  \ifcase#1\relax
+  \rvert\or\bigr|\or\Bigr|\or\biggr|\or\Biggr
+  \fi
+}
+\newcommand{\enVert}[2][-1]{\genericdel\|\|{#1}{#2}}
+\let\norm\enVert
+
+\newcommand{\dif}{\mathop{}\!{d}}
+\newcommand{\Dif}{\mathop{}\!\mathrm{D}}
+
+\newcommand\pd[3][]{\frac{\strut\partial^{#1}#2}{\strut\partial#3^{#1}}}
+\newcommand\tpd[3][]{\tfrac{\partial^{#1}#2}{\partial#3^{#1}}}
+\newcommand\dpd[3][]{\dfrac{\partial^{#1}#2}{\partial#3^{#1}}}
+
+\newcommand{\md}[6]{\frac{\partial^{#2}#1}{\partial#3^{#4}\partial#5^{#6}}}
+\newcommand{\tmd}[6]{\tfrac{\partial^{#2}#1}{\partial#3^{#4}\partial#5^{#6}}}
+\newcommand{\dmd}[6]{\dfrac{\partial^{#2}#1}{\partial#3^{#4}\partial#5^{#6}}}
+
+\newcommand{\od}[3][]{\frac{\dif^{#1}#2}{\dif#3^{#1}}}
+\newcommand{\tod}[3][]{\tfrac{\dif^{#1}#2}{\dif#3^{#1}}}
+\newcommand{\dod}[3][]{\dfrac{\dif^{#1}#2}{\dif#3^{#1}}}
+
+\expandafter\def\expandafter\normalsize\expandafter{%
+    \normalsize
+    \setlength\abovedisplayskip{2pt}
+    \setlength\belowdisplayskip{2pt}
+    \setlength\abovedisplayshortskip{2pt}
+    \setlength\belowdisplayshortskip{2pt}
+}
+
+\everymath{\displaystyle}
+
+\input{mathmacros.tex}
+
+\title[KAM]{Kolmogorov's Theorem}
+\author{Travis Westura}
+\institute{Cornell University}
+\date{April 20, 2015}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+  %\frametitle{Kolmogorov's Theorem}
+  Our goal is to understand the following theorem.
+  \newtheorem{kamthm}{Kolmogorov's Theorem}
+  \begin{kamthm}
+    \KAM
+  \end{kamthm}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kolmogorov's Theorem}
+  The \textbf{KAM} theory is named after
+  \begin{itemize}
+    \item Andre{\"i} \textbf{K}olmogorov,
+    \item Vladimir \textbf{A}rnold,
+    \item J{\"u}rgen \textbf{M}oser.
+  \end{itemize}
+  Kolmogorov gave an original proof in the $1950$s but never published it.
+  Arnold gave a proof of the theorem in $1963$ and Moser published a different
+  but related result in $1962$.
+\end{frame}
+
+\begin{frame}
+  \frametitle{A Motivating Example}
+  % TODO
+  The solar system when planets have zero mass.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  Named for William Rowan Hamilton ($1805$-$1865$).
+
+  A reformulation of classical Newtonian mechanics.
+
+  Relies on a symplectic structure.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  Let $(X, \sigma)$ be a symplectic manifold.
+  That is, $X$ is a differentiable manifold and $\sigma$ is a nowhere vanishing
+  $2$-form such that $\dif \sigma = 0$.
+
+  A function $H$ on a $X$ has a \emph{symplectic gradient} denoted $\sgrad H$.
+  This gradient is the unique vector field such that for any vector field $\xi$,
+  we have
+  \begin{equation*}
+    \sigma(\xi, \sgrad H) = \dif H(\xi).
+  \end{equation*}
+
+  We will consider a \emph{Hamiltonian differential equation} that makes use of
+  this symplectic gradient:
+  \begin{equation*}
+    \bd{x} = (\sgrad H)(\bp{x}).
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  For a simple example of a Hamiltonian system, consider $X = \R^{2n}$
+  with coordinates $(q_1, \ldots, q_n, p_1, \ldots, p_n)$.
+  Take $\sigma = \sum_i \dif p_i \wedge \dif q_i$.
+  Our Hamiltonian differential equation is
+  \begin{align*}
+    \dot{q}_i &= \pd{H}{p_i},\\
+    \dot{p}_i &= -\pd{H}{q_i},
+  \end{align*}
+  where these are called the \emph{Hamiltonian equations of motion}.
+\end{frame}
+
+% TODO how does this relate to the basic Hamiltonian system from 4200?
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  How does the Solar System fit this model?
+  Consider the case of a single body of zero mass.
+  (It is sufficient to consider the single body system, since the planets having
+  zero mass means that they do not effect each other).
+  For $\bp{x} \in \R^2$ the equation $\bdd{x} = -\frac{\bp{x}}{|\bp{x}|^3}$ is
+  Hamilton's equation for the manifold $X = \R^2 \times \R^2$ with points
+  $(\bp{q}, \bp{p})$, standard symplectic form
+  \begin{equation*}
+    \sigma = \dif p_1 \wedge \dif q_1 + \dif p_2 \wedge \dif q_2,
+  \end{equation*}
+  and Hamiltonian
+  \begin{equation*}
+    H(\bp{q}, \bp{p}) = \frac{1}{2} (p_1^2 + p_2^2) - \frac{1}{\sqrt{q_1^2 +
+    q_2^2}}.
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  After some computation, we can obtain
+  \begin{equation*}
+    \sgrad H = \left( \bp{p}, -\frac{1}{(q_1^2 + q_2^2)^{\frac{3}{2}}} \bp{q}
+    \right).
+  \end{equation*}
+  The Hamiltonian Differential Equation $\bd{x} = \sgrad H(\bp{x})$ is
+  \begin{align*}
+    q_1' &= p_1 \qquad p_1' = - \frac{q_1}{(q_1^2 + q_2^2)^{\frac{3}{2}}},\\
+    q_2' &= p_2 \qquad p_2' = - \frac{q_2}{(q_1^2 + q_2^2)^{\frac{3}{2}}}.
+  \end{align*}
+  From here we can recover $\bdd{x} = -\frac{\bp{x}}{|\bp{x}|^3}$.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  % Explain Hamiltonian flow
+\end{frame}
+
+\begin{frame}
+  \frametitle{Irrationality}
+  We want to make formal the notion of ``suffiently irrational.''
+  (Later we will see that this will help us to avoid dividing by zero).  
+
+  A number $\theta$ is irrational if for all pairs $p, q \in \Z$, we have
+  $\left|\theta - \frac{p}{q}\right| \neq 0$.
+
+  So for $\theta$ to be ``very'' irrational, we want $\left|\theta -
+    \frac{p}{q}\right|$ to be ``very'' different from $0$, or ``very big.''
+
+  But that is not quite possible, as we can always approximate an irrational
+  number by rational numbers.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Irrationality}
+  Instead we want to consider what happens with small divisors.
+  % TODO finish
+\end{frame}
+
+\begin{frame}
+  \frametitle{Irrationality}
+  We start with \emph{diophantine conditions}.
+  \newtheorem{dionum}{Diophantine of Exponent $d$}
+  \begin{dionum}
+    A number $\theta$ is \emph{diophantine of exponent d} if there exists a
+    constant $C$ such that for all coprime integers $p$ and $q$ we have
+    \begin{equation*}
+      \left| \theta - \frac{p}{q} \right| > \frac{\gamma}{|q|^d}.
+    \end{equation*}
+  \end{dionum}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Irrationality}
+  We generalize ``sufficiently irrational'' from numbers to vectors.
+  \newtheorem{diovec}{Diophantine Vector in $\mathbb{R}^n$}
+  \begin{diovec}
+    Let $\omega = (\omega_1, \ldots, \omega_n)$.
+    We say $\omega$ is Diophantine if there exists $\gamma > 0$ such that for
+    all vectors with integer coefficients $(k_1, \ldots, k_n)$, we have
+    \begin{equation*}
+      |k_1 \omega_1 + \cdots + k_n \omega_n| \geq \frac{\gamma}{(k_1^2 + \cdots
+        + k_n^2)^{\frac{n}{2}}}.
+    \end{equation*}
+    Let $\Sigma_{\gamma}^n$ be the subset of such $\omega \in \R^n$.
+  \end{diovec}
+  In our example of the solar system, the $\omega_i$ represent the
+  frequencies of the planets' orbits.
+  % TODO make sure that the terminology is correct
+\end{frame}
+
+\begin{frame}
+  \frametitle{Irrationality}
+  How common are the vectors $\omega$?
+  Actually very common, as if we pick components $\omega_i$ at random, we will
+  almost surely select such a vector.
+  % TODO do I want to write the proof, or omit it?
+\end{frame}
+
+\begin{frame}
+  \frametitle{Torus}
+  % TODO dense windings
+  % Relate to the solar system example
+\end{frame}
+
+\begin{frame}
+  \frametitle{Analytic Functions}
+
+  We will be solving a system of equations iteratively, using an analog of
+  Newton's method.
+  
+  Recall that when using Newton's method, we need a way to bound the second
+  derivatives.
+  
+  We need a way to measure ``size,'' that is, we need to choose a norm for our
+  functions.
+
+  % TODO check reference with Newton's method
+\end{frame}
+
+\begin{frame}
+  \frametitle{Analytic Functions}
+  Let $X \subseteq \C^k$ be compact.
+  \footnote{ Or as Alex might like to say, let $X$ be a compact.}
+
+  % TODO check the meaning of caligraphic
+  Let the caligraphic letter $\mathcal{X}$ be the Banach algebra of continuous
+  functions on $X$ that are analytic in the interior and have the sup norm
+  \begin{equation*}
+    \norm{f}_X = \sum_{\bp{x} \in X} |f(\bp{x})|.
+  \end{equation*}
+
+  We use the absolute value as the standard Euclidean norm on $\C^n$.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Analytic Functions}
+  We consider three regions:
+  \begin{align*}
+    B_{\rho} &= \{\bp{p} \in \C : |\bp{p}| \leq \rho\},\\
+    C_{\rho} &= \{\bp{q} \in \C^n / \Z^n : | \Imag(\bp{q}) | \leq \rho\},\\
+    A_{\rho} &= C_{\rho} \times B_{\rho} = \{(\bp{q}, \bp{p}) \in \C^n / \Z^n
+               \times \C^n : |\bp{p}| \leq \rho, \, |\Imag(\bp{q})| \leq \rho\}.
+  \end{align*}
+  Denote by $\mathcal{B}_\rho$, $\mathcal{C}_\rho$, and $\mathcal{A}_\rho$ the
+  corresponding Banach algebras.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Smell of the Proof}
+  % TODO, reference or restate the theorem
+  The last equation in the theorem is an equation for a diffeomorphism $\Phi$.
+  We solve for this diffeomorphism.
+  To do so we would like to use Newton's method, but using it is not quite
+  sufficient.
+  However we can still do something with a similar flavor.
+
+  We obtain $\Phi$ as a limit of $\Phi_i$, where
+  \begin{equation*}
+    \Phi_i = \phi_i \circ \phi_{i-1} \circ \cdots \circ \phi_1.
+  \end{equation*}
+  Here, $\phi_i$ is the Hamiltonian flow for a Hamiltonian function $g_i$.
+  This $g_i$ is the unknown for which we solve.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diophantine Differential Equations}
+  Let $g \in \mathcal{C}_\rho$.
+  We want to solve the linear equation
+  \begin{equation*}
+    \Dif f(\omega) = \sum_{i = 1}^n \omega_i \pd{f}{q_i} = g,
+  \end{equation*}
+  with $f \in \mathcal{C}_{\rho'}$ for some $\rho' < \rho$.
+
+  Set
+  \begin{align*}
+    f(\bp{q}) &= \sum_{\bp{k} \in \Z^n} f_{\bp{k}} e^{2 \pi i \, \bp{k} \cdot
+      \bp{q}},\\
+    g(\bp{q}) &= \sum_{\bp{k} \in \Z^n} g_{\bp{k}} e^{2 \pi i \, \bp{k} \cdot \bp{q}}.
+  \end{align*}
+  The solution is
+  \begin{equation*}
+    f_{\bp{k}} = \frac{1}{2 \pi i \, (\bp{k} \cdot \omega)} g_{\bp{k}}.
+  \end{equation*}
+  We need $g_0$ to be zero.
+  Then $f_0$ is arbitrary, and otherwise the series for $f$ is unique.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diophantine Differential Equations}
+  The convergence properties of $f$ depend on the Diophantine properties of
+  $\omega$.
+
+  We cannot divide by zero when computing the Fourier coefficients $f_{\bp{k}}$.
+  
+  Even though we have convergence for $\rho$, we might not have boundedness.
+  So we need some $\rho' < \rho$ where we have boundedness, but large enough so
+  that the limit is nonempty.
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
