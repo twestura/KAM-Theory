@@ -17,3 +17,32 @@
   \end{equation*}
   with $R(\bp{Q}, \bp{P}) \in O(|\bp{P}|^2)$.
 }
+
+\newcommand{\dionumber}{
+  A number $\theta$ is \emph{diophantine of exponent d} if there exists a
+    constant $\gamma > 0$ such that for all coprime integers $p$ and $q$ we have
+    \begin{equation*}
+      \left| \theta - \frac{p}{q} \right| > \frac{\gamma}{|q|^d}.
+    \end{equation*}
+}
+
+\newcommand{\diovector}{
+  Let $\omega = (\omega_1, \ldots, \omega_n)$.
+    We say $\omega$ is Diophantine if there exists $\gamma > 0$ such that for
+    all vectors with integer coefficients $(k_1, \ldots, k_n)$, we have
+    \begin{equation*}
+      |k_1 \omega_1 + \cdots + k_n \omega_n| \geq \frac{\gamma}{(k_1^2 + \cdots
+        + k_n^2)^{\frac{n}{2}}}.
+    \end{equation*}
+    Let $\Omega_{\gamma}^n$ be the subset of such $\omega \in \R^n$.
+}
+
+\newcommand{\domains}{
+  \begin{align*}
+    B_{\rho} &= \{\bp{p} \in \C : |\bp{p}| \leq \rho\},\\
+    C_{\rho} &= \{\bp{q} \in \C^n / \Z^n : | \Imag(\bp{q}) | \leq \rho\},\\
+    A_{\rho} &= C_{\rho} \times B_{\rho} = \{(\bp{q}, \bp{p}) \in \C^n / \Z^n
+               \times \C^n : |\bp{p}| \leq \rho, \, |\Imag(\bp{q})| \leq \rho\}.
+  \end{align*}
+}
+

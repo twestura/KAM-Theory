@@ -213,7 +213,30 @@
 
 \begin{frame}
   \frametitle{Hamiltonian Mechanics}
-  % Explain Hamiltonian flow
+  The vector field $\sgrad f$ has a flow $\phi^t_f$ such that
+  \begin{itemize}
+  \item $\phi^t_f$ preserves $f$: $f \circ \phi^t_f = f$,
+  \item $\phi^t_f$ preserves $\sigma$: $(\phi^t_f)^* \sigma = \sigma$.
+  \end{itemize}
+
+  Our proof of Kolmogorov's Theorem will involve the construction of a
+  symplectic diffeomorphism $\Phi$ that is a composition of Hamiltonian flows.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  We will need to construct Taylor polynomials of functions of the form $t
+  \mapsto g \circ \phi^t_f$.
+
+  To do this we use the Poisson bracket.
+  \newtheorem{possbrack}{Poisson Bracket}
+  \begin{possbrack}
+    Let $f$ and $g$ be two functions on $X$.
+    The \emph{Poisson bracket}, denoted $\{f, g\}$, is defined by
+    \begin{equation*}
+      \{f, g\} = \sigma(\sgrad f, \sgrad g) = df(\sgrad g) = - dg(\sgrad f).
+    \end{equation*}
+  \end{possbrack}
 \end{frame}
 
 \begin{frame}
@@ -242,11 +265,7 @@
   We start with \emph{diophantine conditions}.
   \newtheorem{dionum}{Diophantine of Exponent $d$}
   \begin{dionum}
-    A number $\theta$ is \emph{diophantine of exponent d} if there exists a
-    constant $C$ such that for all coprime integers $p$ and $q$ we have
-    \begin{equation*}
-      \left| \theta - \frac{p}{q} \right| > \frac{\gamma}{|q|^d}.
-    \end{equation*}
+    \dionumber{}
   \end{dionum}
 \end{frame}
 
@@ -255,14 +274,7 @@
   We generalize ``sufficiently irrational'' from numbers to vectors.
   \newtheorem{diovec}{Diophantine Vector in $\mathbb{R}^n$}
   \begin{diovec}
-    Let $\omega = (\omega_1, \ldots, \omega_n)$.
-    We say $\omega$ is Diophantine if there exists $\gamma > 0$ such that for
-    all vectors with integer coefficients $(k_1, \ldots, k_n)$, we have
-    \begin{equation*}
-      |k_1 \omega_1 + \cdots + k_n \omega_n| \geq \frac{\gamma}{(k_1^2 + \cdots
-        + k_n^2)^{\frac{n}{2}}}.
-    \end{equation*}
-    Let $\Sigma_{\gamma}^n$ be the subset of such $\omega \in \R^n$.
+    \diovector{}
   \end{diovec}
   In our example of the solar system, the $\omega_i$ represent the
   frequencies of the planets' orbits.
@@ -316,12 +328,7 @@
 \begin{frame}
   \frametitle{Analytic Functions}
   We consider three regions:
-  \begin{align*}
-    B_{\rho} &= \{\bp{p} \in \C : |\bp{p}| \leq \rho\},\\
-    C_{\rho} &= \{\bp{q} \in \C^n / \Z^n : | \Imag(\bp{q}) | \leq \rho\},\\
-    A_{\rho} &= C_{\rho} \times B_{\rho} = \{(\bp{q}, \bp{p}) \in \C^n / \Z^n
-               \times \C^n : |\bp{p}| \leq \rho, \, |\Imag(\bp{q})| \leq \rho\}.
-  \end{align*}
+  \domains{}
   Denote by $\mathcal{B}_\rho$, $\mathcal{C}_\rho$, and $\mathcal{A}_\rho$ the
   corresponding Banach algebras.
 \end{frame}
@@ -346,7 +353,7 @@
 \begin{frame}
   \frametitle{Diophantine Differential Equations}
   Let $g \in \mathcal{C}_\rho$.
-  We want to solve the linear equation
+  We are going to be solving linear equations of the form
   \begin{equation*}
     \Dif f(\omega) = \sum_{i = 1}^n \omega_i \pd{f}{q_i} = g,
   \end{equation*}

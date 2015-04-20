@@ -2,11 +2,20 @@
 
 \usepackage{mystyle}
 
+\expandafter\def\expandafter\normalsize\expandafter{%
+    \normalsize
+    \setlength\abovedisplayskip{2pt}
+    \setlength\belowdisplayskip{2pt}
+    \setlength\abovedisplayshortskip{2pt}
+    \setlength\belowdisplayshortskip{2pt}
+}
+
 \title{Kolmogorov's Theorem}
 \author{Travis Westura}
 \date{\today}
 
 \input{mathmacros.tex}
+\newcommand{\sgrad}{\nabla_{\sigma}}
 
 \begin{document}
 
@@ -16,7 +25,103 @@ Our goal is to understand Kolmogorov's theorem:
 \begin{thm}[Kolmogorov's Theorem]
   \KAM
 \end{thm}
-To read this theorem, we require some notation.
+In particular the motion
+\begin{align*}
+  \bp{Q}(t) &= \bp{Q}(0) + t\omega_0,\\
+  \bp{P}(t) &= 0,
+\end{align*}
+is a solution of the Hamiltonian equation that is conjugate to the linear flow
+with direction $\omega_0$, so that the invariant torus $\bp{p} = 0$ is preserved
+by the perturbation.
+
+To read and then understand this theorem, we require some definitions and
+notation.
+
+If $(X, \sigma)$ is a symplectic manifold, then any function $H$ on $X$ has a
+symplectic gradient $\sgrad H$ defined as the unique vector field such that for
+any vector field $\xi$, it holds that $\sigma(\xi, \sgrad H) = d H(\xi)$.
+The Hamiltonian differential equation is $\dot{x} = (\sgrad H)(x)$.
+
+$\sgrad f$ has a flow $\phi^t_f$ such that $f \circ \phi^t_f = f$ and
+$(\phi^t_f)^* \sigma = \sigma$.
+
+\begin{defn}[Poisson Bracket]
+The \emph{Poisson Bracket} of $X$ is defined by
+  \begin{equation*}
+    \{f, g\} = \sigma(\sgrad g, \sgrad f) = df(\sgrad g) = - dg(\sgrad f).
+  \end{equation*}
+\end{defn}
+Functions $f$ and $g$ \emph{commute} if $\{f, g\} = 0$.
+This condition implies that their flows commute:
+\begin{equation*}
+  \phi_f(s) \circ \phi_g(t) = \phi_g(t) \circ \phi_f(s).
+\end{equation*}
+The symplectic gradient of the Poisson bracket is the Lie bracket:
+\begin{equation*}
+  \sgrad\{f, g\} = [\sgrad f, \sgrad g].
+\end{equation*}
+The Lie bracket $[X, Y]$ is the derivative of $Y$ in the ``direction'' of $X$.
+
+\begin{exmp}[Hamiltonian Equations of Motion]
+  Take $X = \R^{2n}$ with coordinates
+  $(\bp{q}, \bp{p}) = (q_1, \ldots, q_n, p_1, \ldots, p_n)$ and
+  $\sigma = \sum_i \dif p_i \wedge \dif q_i$.
+  Then the Hamiltonian differential equation becomes the \emph{Hamiltonian
+    Equations of Motion}:
+  \begin{align*}
+    \dot{q}_i &= \pd{H}{p_i},\\
+    \dot{p}_i &= -\pd{H}{q_i}.
+  \end{align*}
+  We can integrate these equations.
+  The solution with initial conditions $(\bp{q}_0, \bp{p}_0)$ is
+  \begin{align*}
+    \bp{q}(t) &= \bp{q}_0 + t \pd{H}{\bp{p}}(\bp{p}_0) =: \bp{q}_0 + t
+                \omega(\bp{p}_0),\\
+    \bp{p}(t) &= \bp{p}_0.
+  \end{align*}
+  Each coordinate $p_1, \ldots p_n$ is conserved, and the motion is a linear
+  motion on the torus $\mathbb{T}^n \times \{\bp{p}_0\}$.
+  
+  In this case the Poisson bracket is given by
+  \begin{equation*}
+    \{f, g\} = \sum_{i = 1}^n \left( \pd{f}{q_i} \pd{g}{p_i} - \pd{f}{p_i}
+      \pd{g}{q_i} \right).
+  \end{equation*}
+\end{exmp}
+The Poisson bracket allows us to write Taylor Series as
+\begin{equation*}
+  f \circ \phi^t_g = f + t \{f, g\} + \frac{t^2}{2} \{ \{f, g\}, g\} +
+  \frac{t^3}{3!} \{ \{ \{f, g\}, g\}, g\} + \cdots.
+\end{equation*}
+
+\begin{defn}[Diophantine Number of Exponent $d$]
+  \dionumber{}
+\end{defn}
+
+\begin{defn}[Diophantine Vector]
+  \diovector
+\end{defn}
+
+If an analytic function $f$ is bounded on an open set $U$ and if $V$ is
+relatively compact in $U$, then we can bound the second derivatives of $f$ on
+$V$ in terms of $\sup_U |f|$.
+The important domains are
+\domains{}
+Denote by $\mathcal{B}_\rho$,
+$\mathcal{C}_\rho$, and $\mathcal{A}_\rho$ the corresponding Banach algebras of
+functions continuous on these compact sets and analytic on the interiors, with
+sup-norm $\norm{f}_{\rho}$.
+\begin{defn}[Banach Algebra]
+  Let $k$ be $\R$ or $\C$.
+  A \emph{normed algebra} over $k$ is an algebra $\mathcal{A}$ over $k$ with a
+  sub-multiplicative norm $\norm{.}$, that is, for all $x, y \in \mathcal{A}$,
+  we have $\norm{xy} \leq \norm{x} \norm{y}$,
+  If $\mathcal{A}$ is a Banach space, then it is called a \emph{Banach algebra}.
+\end{defn}
+Elements of $\mathcal{B}_{\rho}$ can be expanded as Power series.
+Elements of $\mathcal{C}_{\rho}$ can be expanded as Fourier series
+$f(\bp{z})~=~\sum_{\bp{k} \in \Z^{2n}} f_{\bp{k}} \e^{2 \pi \i \, \bp{k} \cdot
+  \bp{z}}$.
 
 \end{document}
 
