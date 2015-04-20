@@ -257,6 +257,9 @@
 \begin{frame}
   \frametitle{Irrationality}
   Instead we want to consider what happens with small divisors.
+
+  We want $\left| \theta - \frac{p}{q} \right|$ to be ``small'' \emph{only if}
+  the denominator is ``big.''
   % TODO finish
 \end{frame}
 
@@ -276,9 +279,14 @@
   \begin{diovec}
     \diovector{}
   \end{diovec}
+
+  We could also rewrite this condition as a dot product
+  \begin{equation*}
+    |\bp{k} \cdot \omega| \leq \frac{\gamma}{|\bp{k}|^n}.
+  \end{equation*}
+
   In our example of the solar system, the $\omega_i$ represent the
   frequencies of the planets' orbits.
-  % TODO make sure that the terminology is correct
 \end{frame}
 
 \begin{frame}
@@ -286,13 +294,52 @@
   How common are the vectors $\omega$?
   Actually very common, as if we pick components $\omega_i$ at random, we will
   almost surely select such a vector.
-  % TODO do I want to write the proof, or omit it?
+  
+  \newtheorem{diomeas}{Diophantine Vectors are of Full Measure}
+  \begin{diomeas}
+    The union $\Sigma = \bigcup_{\gamma > 0} \Sigma_{\gamma}$ is of full measure.
+  \end{diomeas}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Irrationality}
+  \begin{proof}[Diophantine Vectors are of Full Measure]
+    Consider $S_{\bp{k}, \gamma}$, the region
+  \end{proof}
 \end{frame}
 
 \begin{frame}
   \frametitle{Torus}
   % TODO dense windings
   % Relate to the solar system example
+\end{frame}
+
+\begin{frame}
+  \frametitle{Torus}
+  \newtheorem{kamsolar}{KAM for the Solar System}
+  \begin{kamsolar}
+    Let $\bp{x}_1(t)$ be a motion of the zero-masses system for which the
+    frequency vector $\omega$ is Diophantine.
+    (Then $\bp{x}_1(t)$ is dense on the corresponding torus $T_1$).
+
+    Then there exists $\epsilon > 0$ such that, if the planets have masses $m_i
+    < \epsilon$, then there exists a trajectory $\bp{x}(t)$ of the system that
+    is dense on a torus $T$, and there exists a homeomorphism $\Phi : T \to T_1$
+    such that $\Phi(\bp{x}(t)) = \bp{x}_1(t)$.
+
+    The probability of being on such a trajectory goes to $1$ as $\epsilon$ goes
+    to $0$.
+  \end{kamsolar}
+  % TODO this is what the other article would imply, but I am not sure about
+  % the difference between almost periodic and quasiperiodic:
+  %This says the solar system is probably almost periodic.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Another Look at the Theorem}
+  \begin{kamthm}
+    \KAM{}
+  \end{kamthm}
 \end{frame}
 
 \begin{frame}
