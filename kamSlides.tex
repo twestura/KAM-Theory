@@ -326,6 +326,19 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  The Hamiltionian equations of motion can be integrated.
+
+  The solution with initial value $(\bp{q}_0, \bp{p}_0)$ is
+  \begin{align*}
+    \bp{q}(t) &= \bp{q}_0 + t \pd{H}{\bp{p}} = \bp{q_0} + t \omega(\bp{p}_0),\\
+    \bp{p}(t) &= \bp{p}_0.
+  \end{align*}
+  In particular, each coordinate $p_1, \ldots, p_n$ is conserved, and the
+  trajectory is a linear motion on the torus $\mathbb{T}^n \times \{\bp{p}_0\}$.
+\end{frame}
+
+\begin{frame}
   \frametitle{Irrationality}
   We want to make formal the notion of ``suffiently irrational.''
   (Later we will see that this will help us to avoid dividing by zero).  
@@ -446,7 +459,7 @@
   + t \omega_n)$ is called a \emph{linear flow on $(\R / \Z)^n$ in the direction
     $\omega$}.
 
-  The trajectory dense on the torus if and only if the trajectory $\omega$ is
+  The trajectory is dense on the torus if and only if the trajectory $\omega$ is
   irrational.
 
   A motion $\bp{x}(t)$ of a perturbed system is ``the same'' as the motion of an
@@ -537,7 +550,7 @@
   Denote by $\mathcal{B}_\rho$, $\mathcal{C}_\rho$, and $\mathcal{A}_\rho$ the
   corresponding Banach algebras.
 
-  We can expand element of $\mathcal{B}_{\rho}$ as power series, and elements of
+  We can expand elements of $\mathcal{B}_{\rho}$ as power series, and elements of
   $\mathcal{C}_{\rho}$ as Fourier series:
   \begin{equation*}
     f(\bp{z}) = \sum_{\bp{k} \in \Z^n} f_{\bp{k}} e^{2 \pi i \, \bp{k} \cdot \bp{z}}.

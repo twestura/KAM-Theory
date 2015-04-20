@@ -21,7 +21,6 @@
 
 \maketitle
 
-Our goal is to understand Kolmogorov's theorem:
 \begin{thm}[Kolmogorov's Theorem]
   \KAM
 \end{thm}
@@ -33,9 +32,6 @@ In particular the motion
 is a solution of the Hamiltonian equation that is conjugate to the linear flow
 with direction $\omega_0$, so that the invariant torus $\bp{p} = 0$ is preserved
 by the perturbation.
-
-To read and then understand this theorem, we require some definitions and
-notation.
 
 If $(X, \sigma)$ is a symplectic manifold, then any function $H$ on $X$ has a
 symplectic gradient $\sgrad H$ defined as the unique vector field such that for
@@ -60,7 +56,6 @@ The symplectic gradient of the Poisson bracket is the Lie bracket:
 \begin{equation*}
   \sgrad\{f, g\} = [\sgrad f, \sgrad g].
 \end{equation*}
-The Lie bracket $[X, Y]$ is the derivative of $Y$ in the ``direction'' of $X$.
 
 \begin{exmp}[Hamiltonian Equations of Motion]
   Take $X = \R^{2n}$ with coordinates
@@ -69,8 +64,7 @@ The Lie bracket $[X, Y]$ is the derivative of $Y$ in the ``direction'' of $X$.
   Then the Hamiltonian differential equation becomes the \emph{Hamiltonian
     Equations of Motion}:
   \begin{align*}
-    \dot{q}_i &= \pd{H}{p_i},\\
-    \dot{p}_i &= -\pd{H}{q_i}.
+    \dot{q}_i &= \pd{H}{p_i},\qquad \dot{p}_i = -\pd{H}{q_i}.
   \end{align*}
   We can integrate these equations.
   The solution with initial conditions $(\bp{q}_0, \bp{p}_0)$ is
@@ -81,12 +75,6 @@ The Lie bracket $[X, Y]$ is the derivative of $Y$ in the ``direction'' of $X$.
   \end{align*}
   Each coordinate $p_1, \ldots p_n$ is conserved, and the motion is a linear
   motion on the torus $\mathbb{T}^n \times \{\bp{p}_0\}$.
-  
-  In this case the Poisson bracket is given by
-  \begin{equation*}
-    \{f, g\} = \sum_{i = 1}^n \left( \pd{f}{q_i} \pd{g}{p_i} - \pd{f}{p_i}
-      \pd{g}{q_i} \right).
-  \end{equation*}
 \end{exmp}
 The Poisson bracket allows us to write Taylor Series as
 \begin{equation*}
@@ -122,6 +110,32 @@ Elements of $\mathcal{B}_{\rho}$ can be expanded as Power series.
 Elements of $\mathcal{C}_{\rho}$ can be expanded as Fourier series
 $f(\bp{z})~=~\sum_{\bp{k} \in \Z^{2n}} f_{\bp{k}} \e^{2 \pi \i \, \bp{k} \cdot
   \bp{z}}$.
+
+Let $g \in \mathcal{C}_\rho$.
+We are going to be solving linear equations of the form
+\begin{equation*}
+  \Dif f(\omega) = \sum_{i = 1}^n \omega_i \pd{f}{q_i} = g,
+\end{equation*}
+with $f \in \mathcal{C}_{\rho'}$ for some $\rho' < \rho$.
+
+Write the functions $f$ and $g$ as Fourier Series:
+\begin{align*}
+  f(\bp{q}) &= \sum_{\bp{k} \in \Z^n} f_{\bp{k}} e^{2 \pi i \, \bp{k} \cdot
+    \bp{q}},\qquad g(\bp{q}) = \sum_{\bp{k} \in \Z^n} g_{\bp{k}} e^{2 \pi i \,
+              \bp{k} \cdot \bp{q}}.
+\end{align*}
+The solution is given by
+\begin{equation*}
+  f_{\bp{k}} = \frac{1}{2 \pi i \, (\bp{k} \cdot \omega)} g_{\bp{k}}.
+\end{equation*}
+
+We need to solve the equations
+\begin{align*}
+  DX(\bp{q})(\omega) &= -A(\bp{q})\\
+  DY(\bp{q})(\omega) &= -B(\bp{q}) - \big( \lambda + DX(\bp{q}) \big)
+              C(\bp{q})
+\end{align*}
+for $X$ and $Y_i$, $i = 1, \ldots, n$.
 
 \end{document}
 
