@@ -131,6 +131,27 @@
   \frametitle{A Motivating Example}
   % TODO
   The solar system when planets have zero mass.
+
+  A system with $n$ masses $m_i$ and positions $\bp{x}_i$ satisfies Newton's
+  $\bp{F} = m \bp{a}$ law:
+  \begin{equation*}
+    m_i \bdd{x}_i = \sum_{j \neq i} G m_i m_j \frac{\bp{x}_j -
+      \bp{x}_i}{|\bp{x}_j - \bp{x}_i|^3}.
+  \end{equation*}
+
+  We take the sun to be given by index $0$ and the plants to be given by the
+  indices $1, \ldots n$.
+\end{frame}
+
+\begin{frame}
+  \frametitle{A Motivating Example}
+  Take the sun to be at the center of the solar system ($\bp{x}_0 = 0$) and
+  setting the masses of the planets to zero ($m_i = 0$ for $i \neq 0$).
+
+  We obtain $\bp{x}_0'' = 0$ and for $i \neq 0$
+  \begin{equation*}
+    \bp{x}_i'' = -G m_0 \frac{\bp{x}_i}{|\bp{x}_i|^3}.
+  \end{equation*}
 \end{frame}
 
 \begin{frame}
@@ -160,6 +181,28 @@
   \begin{equation*}
     \bd{x} = (\sgrad H)(\bp{x}).
   \end{equation*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  Let's compare the symplectic gradient and the gradient $\nabla f$ of a function
+  $f : \R^n \to \R$ from multivariable calculus.
+
+  The gradient is the unique vector field such that
+  \begin{equation*}
+    df(\xi) = \langle \xi, \nabla f \rangle.
+  \end{equation*}
+
+  We could also consider the ``gradient differential equation''
+  \begin{equation*}
+    \bd{x} = \nabla f(\bp{x}).
+  \end{equation*}
+
+  Since $f$ increases along its solutions, they can never return to their
+  starting point.
+
+  This prohibits recurrence, whereas the Hamiltonian equations allow and almost
+  impose recurrence (see the Poincar{\'e} recurrence theorem).
 \end{frame}
 
 \begin{frame}
@@ -237,6 +280,49 @@
       \{f, g\} = \sigma(\sgrad f, \sgrad g) = df(\sgrad g) = - dg(\sgrad f).
     \end{equation*}
   \end{possbrack}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  The gradient of the Poisson bracket corresponds to the Lie bracket:
+  \begin{equation*}
+    \sgrad \{f, g\} = [\sgrad f, \sgrad g].
+  \end{equation*}
+  Proving this equality is a computation that is not difficult, but rather
+  tedious.
+
+  Two function $f$ and $g$ commute if their Poisson bracket is zero: $\{f, g\} =
+  0$.
+
+  This implies that their flows commute:
+  \begin{equation*}
+    \phi_f(s) \circ \phi_g(t) = \phi_g(t) \circ \phi_f(s).
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  In the example involving the Hamiltonian equations of motion, we can write a
+  Poisson bracket as
+  \begin{equation*}
+    \{f, g\} = \sum_{i = 1}^n \left( \pd{f}{q_i} \pd{g}{p_i} - \pd{f}{p_i}
+      \pd{g}{q_i}\right).
+  \end{equation*}
+
+  The Poisson bracket will allow us to write Taylor polynomials:
+  \begin{equation*}
+    f \circ \phi^t_g = f + t \{f, g\} + \frac{t^2}{2} \{\{f,g\},g\} +
+    \{\{\{f,g\},g\},g\} + \cdots.
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Mechanics}
+  Denote the torus by $\mathbb{T} = \R / \Z$.
+  A \emph{totally integrable system} is a symplectic manifold $X = \mathbb{T}^n
+  \times \R^n$ with variables $(\bp{q} \in \mathbb{T}^n, \bp{p} \in \R^n)$,
+  symplectic form $\sigma = \sum_i \dif p_i \wedge \dif q_i$, and Hamiltonian
+  function $H(\bp{p})$ that depends only on $\bp{p}$.
 \end{frame}
 
 \begin{frame}
@@ -352,8 +438,21 @@
 
 \begin{frame}
   \frametitle{Torus}
-  % TODO dense windings
-  % Relate to the solar system example
+  We view the solar system as an $n$ dimensional torus.
+
+  Give the planets initial positions $\bp{a} = (a_1, \ldots, a_n)$.
+
+  Then the motion $t \mapsto \bp{a} + t \omega = (a_1 + t \omega_1, \ldots, a_n
+  + t \omega_n)$ is called a \emph{linear flow on $(\R / \Z)^n$ in the direction
+    $\omega$}.
+
+  The trajectory dense on the torus if and only if the trajectory $\omega$ is
+  irrational.
+
+  A motion $\bp{x}(t)$ of a perturbed system is ``the same'' as the motion of an
+  unperturbed system $\bp{x}_1(t)$ dense on a torus $T_1$ means that $\bp{x}(t)$
+  is dense on a torus $T$ and that there exists a homeomorphism $\Phi : T \to
+  T_1$ such that $\Phi(\bp{x}(t)) = \bp{x}_1(t)$.
 \end{frame}
 
 \begin{frame}
@@ -390,21 +489,37 @@
   We will be solving a system of equations iteratively, using an analog of
   Newton's method.
   
-  Recall that when using Newton's method, we need a way to bound the second
-  derivatives.
-  
-  We need a way to measure ``size,'' that is, we need to choose a norm for our
-  functions.
+  Newton's method for solving an equation $f(\bp{x}) = 0$ consists of choosing a
+  starting guess $\bp{x}_0$ and then defining
+  \begin{equation*}
+    \bp{x}_{i+1} = \bp{x}_i - [Df(\bp{x}_i)]^{-1} f(\bp{x}_i).
+  \end{equation*}
 
-  % TODO check reference with Newton's method
+  But we might pick a ``bad'' initial guess for which Newton's method does not
+  converge to a solution.
+
+  For example, taking $f(x) = x^3 - x + \frac{\sqrt{2}}{2}$ and the initial
+  guess $x_0 = 0$, Newton's method will oscillate between $0$ and
+  $\frac{\sqrt{2}}{2}$.
 \end{frame}
 
 \begin{frame}
   \frametitle{Analytic Functions}
+  In order to guarantee convergence, we use Kantorovich's theorem.
+
+  This theorem requires a bound on the second derivative.
+
+  We want an analogous condition for our problem.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Analytic Functions}
+  We need a way to measure ``size,'' that is, we need to choose a norm for our
+  functions.
+
   Let $X \subseteq \C^k$ be compact.
   \footnote{ Or as Alex might like to say, let $X$ be a compact.}
 
-  % TODO check the meaning of caligraphic
   Let the caligraphic letter $\mathcal{X}$ be the Banach algebra of continuous
   functions on $X$ that are analytic in the interior and have the sup norm
   \begin{equation*}
@@ -476,7 +591,7 @@
   \begin{equation*}
     H(\bp{Q}, \bp{P}) = A + \omega \bp{P} + R (\bp{Q}, \bp{P}).
   \end{equation*}
-  This is an equation for a diffeomorphism $\Phi$, where $H = h \circ \Phi$.
+  This is an equation for a diffeomorphism $\Phi$.
   We solve for this diffeomorphism.
   To do so we would like to use Newton's method, but using it is not quite
   sufficient.
@@ -602,6 +717,107 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Diophantine Differential Equations}
+  For $\bp{y} \in \R^n$ with $|\bp{y}| \leq \rho$ (in particular $\bp{y} =
+  \rho\frac{\bp{k}}{|\bp{k}|}$), the function $\bp{q} \mapsto
+  g(\bp{q} - i \bp{y})$ is continuous and periodic in $\bp{q}$ of period $1$.
+
+  This function can be written
+  \begin{equation*}
+    g(\bp{q} - i \bp{y}) = \sum_{\bp{k} \in \Z^n} g_{\bp{k}}e^{2 \pi i \bp{k}
+      \cdot (\bp{q} - i \bp{y})} = \sum_{\bp{k} \in \Z^n} \left( g_{\bp{k}} e^{2
+      \pi \bp{k} \cdot \bp{y}} \right) e^{2 \pi i \bp{k} \cdot \bp{q}}.
+  \end{equation*}
+
+  By Parseval's theorem, we have
+  \begin{equation*}
+    \norm{g}_{\rho}^2 \geq \int_{\mathbb{T}^n} |g(\bp{q} - i \bp{y})|^2 |d^n
+    \bp{q}| = \sum_{\bp{k} \in \Z^n} |g_{\bp{k}}|^2 e^{4 \pi \bp{k} \cdot \bp{y}}.
+  \end{equation*}
+
+  Since the series has positive numbers, we have
+  \begin{equation*}
+    \norm{g}_{\rho}^2 \geq |g_{\bp{k}}|^2 e^{4 \pi \rho |\bp{k}|}.
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diophantine Differential Equations}
+  Using the Diophantine-ness of $\omega$ and the Fourier coefficients
+  $f_{\bp{k}}$, we have
+  \begin{equation*}
+    |f_{\bp{k}}| \leq \frac{1}{2 \pi \gamma} \norm{g}_{\rho} |\bp{k}|^n e^{-2
+      \pi |\bp{k}| \rho}.
+  \end{equation*}
+
+  Next we split the proposition's proof into two parts: the $f$ case and the
+  $Df$ case.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diophantine Differential Equations}
+  For $|\bp{q}| \leq \rho - \delta$, we can write
+  \begin{align*}
+    \left| f_{\bp{k}}e^{2 \pi i (\bp{k} \cdot \bp{q})} \right|
+    & \leq \sum_{\bp{k} \in \Z^n} \frac{|\bp{k}|^n}{2 \pi \gamma}
+      \norm{g}_{\rho} e^{-2 \pi \rho |\bp{k}|(\rho - \delta)}\\
+    &= \frac{\norm{g}_{\rho}}{2 \pi \gamma} \sum_{\bp{k} \in \Z^n} |\bp{k}|^n
+      e^{-2 \pi |\bp{k}| \delta}.
+  \end{align*}
+
+  We then rewrite the sum on the right:
+  \begin{equation*}
+     \sum_{\bp{k} \in \Z^n} |\bp{k}|^n
+       e^{-2 \pi |\bp{k}| \delta} = \frac{1}{(2 \pi \delta)^{2n}} \left( (2 \pi
+        \delta)^n \sum_{\bp{k}' \in 2 \pi \delta \Z^n} |\bp{k}'|^n
+       e^{-|\bp{k}'|}\right).
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diophantine Differential Equations}
+  \begin{equation*}
+     \sum_{\bp{k} \in \Z^n} |\bp{k}|^n
+      e^{-2 \pi |\bp{k}| \delta} = \frac{1}{(2 \pi \delta)^{2n}} \left( (2 \pi
+        \delta)^n \sum_{\bp{k}' \in 2 \pi \delta \Z^n} |\bp{k}'|^n
+        e^{-|\bp{k}'|}\right).
+  \end{equation*}
+  As $\delta \to 0$, the expression inside the parentheses approaches
+  $\int_{\R^n} |\bp{x}|^n e^{-|\bp{x}|} |d^n\bp{x}|$.
+
+  Since the interval is convergent there exists $\kappa_n'$ such that for
+  $\delta \leq 1$, it holds that
+  \begin{equation*}
+    \sum_{\bp{k} \in \Z^n} |\bp{k}|^n e^{-2 \pi |\bp{k}| \delta} \leq
+    \frac{\kappa_n'}{(2 \pi \delta)^{2n}}.
+  \end{equation*}
+  This is the ``$f$'' part of the proof.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diophantine Differential Equations}
+  The ``$Df$'' part of the proof is similar.
+  
+  Use
+  \begin{equation*}
+    Df(\bp{q})(\bp{u}) = 2 \pi i \sum (\bp{k} \cdot \bp{u}) f_{\bp{k}} e^{2 \pi
+      i (\bp{k} \cdot \bp{q})}.
+  \end{equation*}
+
+  We obtain
+  \begin{equation*}
+    |Df(\bp{q})(\bp{u})| \leq \frac{|\bp{u}| \norm{g}_{\rho} \kappa_n''}{\gamma
+      (2 \pi \gamma)^{n+1}}.
+  \end{equation*}
+
+  To complete the proof of the proposition, take
+  \begin{equation*}
+    \kappa_n = \max \left\{ \frac{\kappa_n'}{(2 \pi)^{2n}},
+      \frac{\kappa_n''}{(2\pi)^{2n + 1}} \right\}.
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
   \frametitle{The Equations to Solve}
   Let's return to $h_1 + \{g, h_0\} \in O(|\bp{p}|^2)$ (the Diophantine differential
   equation that we had before, but without the tildes and with $o(|\bp{p}|)$
@@ -638,6 +854,7 @@
            &\qquad + \Big(B(\bp{q}) + \big( \lambda + DX(\bp{q}) \big) C(\bp{q}) +
              \omega DY(\bp{q}) \Big) \cdot \bp{p} + O(|\bp{p}|^2).
   \end{align*}
+
 \end{frame}
 
 \begin{frame}
@@ -673,6 +890,8 @@
 
   Then we can solve the second equation and find $Y_i \in \mathcal{C}_{\rho''}$
   for all $\rho'' < \rho'$.
+  
+  Iterating the process requires choosing $\rho'$ and $\rho''$ ``carefully.''
 \end{frame}
 
 
