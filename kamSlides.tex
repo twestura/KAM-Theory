@@ -274,6 +274,36 @@
 
 \begin{frame}
   \frametitle{Irrationality}
+  Note that it is a stronger condition to be Diophantine of a smaller exponent.
+  
+  \newtheorem{diomany}{Diophantine Numbers with Full Measure}
+  \begin{diomany}
+    For all $\epsilon > 0$, the set of Diophantine numbers of exponent $2 +
+    \epsilon$ is of full measure.
+  \end{diomany}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Irrationality}
+  \begin{proof}[Diophantine Numbers with Full Measure]
+    Consider numbers in $\R / \Z$.
+
+    For all positive integers $q$, there are at most $q$ elements of $\Q / \Z$
+    with denominator $q$ in reduced form.
+    Thus for all $\gamma > 0$,
+    \begin{equation*}
+      \left|\left\{ \theta \in \R / \Z : \left| \theta - \frac{p}{q} \right| <
+          \frac{\gamma}{|q|^{2 + \epsilon}} \right\} \right| < 2 \gamma \sum_{q =
+      1}^{\infty} \frac{1}{q^{1 + \epsilon}}.
+  \end{equation*}
+  The intersection of these sets as $\gamma \to 0$ has measure $0$, and this
+  intersection is the complement of the set of Diophantine numbers of exponent
+  $2 + \epsilon$.
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Irrationality}
   We generalize ``sufficiently irrational'' from numbers to vectors.
   \newtheorem{diovec}{Diophantine Vector in $\mathbb{R}^n$}
   \begin{diovec}
@@ -297,14 +327,26 @@
   
   \newtheorem{diomeas}{Diophantine Vectors are of Full Measure}
   \begin{diomeas}
-    The union $\Sigma = \bigcup_{\gamma > 0} \Sigma_{\gamma}$ is of full measure.
+    The union $\Omega = \bigcup_{\gamma > 0} \Omega_{\gamma}$ is of full measure.
   \end{diomeas}
 \end{frame}
 
 \begin{frame}
   \frametitle{Irrationality}
   \begin{proof}[Diophantine Vectors are of Full Measure]
-    Consider $S_{\bp{k}, \gamma}$, the region
+    Consider $S_{\bp{k}, \gamma}$, the region around the hyperplane orthogonal
+    to $\bp{k}$ of thickness $\frac{2\gamma}{|\bp{k}|^{n+1}}$.
+    
+    The part within the unit cube $Q$ has measure at most
+    $\frac{M\gamma}{|\bp{k}|^{n+1}}$, with $M$ the constant giving the max
+    $(n-1)$-dim measure of a hyperplane intersected with $Q$.
+
+    The sum $\sum_{\bp{k} \in \Z^n - \{0\}} \frac{1}{|\bp{k}|^{n+1}}$ is finite,
+    so the volume of $\bigcup_{\mathclap{\bp{k} \in \Z^n - \{0\}}} S_{\bp{k}, \gamma}
+    \cap Q$ is at most a constant times $\gamma$.
+
+    The intersection of these sets has measure $0$, and $\Omega$ is the
+    complement, similar to the previous proof.
   \end{proof}
 \end{frame}
 
@@ -376,14 +418,65 @@
   \frametitle{Analytic Functions}
   We consider three regions:
   \domains{}
+
   Denote by $\mathcal{B}_\rho$, $\mathcal{C}_\rho$, and $\mathcal{A}_\rho$ the
   corresponding Banach algebras.
+
+  We can expand element of $\mathcal{B}_{\rho}$ as power series, and elements of
+  $\mathcal{C}_{\rho}$ as Fourier series:
+  \begin{equation*}
+    f(\bp{z}) = \sum_{\bp{k} \in \Z^n} f_{\bp{k}} e^{2 \pi i \, \bp{k} \cdot \bp{z}}.
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Analytic Functions}
+  We can bound derivatives of analytic functions on balls in terms of the values
+  of the function itself.
+  \newtheorem{cauchyball}{Cauchy's Inequalities on Balls}
+  \begin{cauchyball}
+    If $f \in \mathcal{B}_{\rho}$, then
+    \begin{align*}
+      \norm{Df}_{\rho - \delta} &\leq \frac{1}{\delta} \norm{f}_{\rho},\\
+      \norm{D^2 f}_{\rho - \delta} &\leq \frac{4}{\delta^2} \norm{f}_{\rho}.
+    \end{align*}
+
+    As a corollary, the case $\delta = \rho$ bounds derivatives at the center of
+    balls.
+    \begin{align*}
+      |Df(0)| &\leq \frac{1}{\rho} \norm{f}_{\rho},\\
+      |D^2 f(0)| &\leq \frac{4}{\rho^2} \norm{f}_{\rho}.
+    \end{align*}
+  \end{cauchyball}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Analytic Functions}
+  \begin{proof}[Cauchy's Inequalities on Balls]
+    Take $\bp{z} \in B_{\rho - \delta}$ and $\bp{u} \in \C^n$.
+    Since $B_{\delta}(\bp{z}) \subseteq B_{\rho}$, the function $g : t \mapsto
+    f(\bp{z} + t \delta \bp{u})$ is defined on the unit disc, and the normal
+    Cauchy inequality implies that
+    \begin{equation*}
+      \delta|(Df(\bp{z}))\bp{u}| = |g'(0)| \leq \norm{g}_1 \leq
+      \norm{f}_{\rho}.
+    \end{equation*}
+    Applying the argument twice gives the result for the second derivative:
+    \begin{equation*}
+      |D^2 f(\bp{z})(\bp{u}, \bp{v})| \leq \frac{2}{\delta}
+      \norm{Df(\bp{z})(\bp{u})}_{\rho - \frac{\delta}{2}}|\bp{v}| \leq
+      \frac{4}{\delta^2} \norm{f}_{\rho} |\bp{u}||\bp{v}|.
+    \end{equation*}
+  \end{proof}
 \end{frame}
 
 \begin{frame}
   \frametitle{Smell of the Proof}
-  % TODO, reference or restate the theorem
-  The last equation in the theorem is an equation for a diffeomorphism $\Phi$.
+  Recall the final equation in Kolmogorov's theorem:
+  \begin{equation*}
+    H(\bp{Q}, \bp{P}) = A + \omega \bp{P} + R (\bp{Q}, \bp{P}).
+  \end{equation*}
+  This is an equation for a diffeomorphism $\Phi$, where $H = h \circ \Phi$.
   We solve for this diffeomorphism.
   To do so we would like to use Newton's method, but using it is not quite
   sufficient.
@@ -398,6 +491,64 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Smell of the Proof}
+  At the $i$th step we have a Hamiltonian $\tilde{h} = \Phi_i^* h$.
+
+  We expand $\tilde{h}$ up to order $2$ in $\bp{p}$, and the coefficients will
+  be Fourier series in $\bp{q}$.
+
+  We write $\tilde{h} = \tilde{h}_0 + \tilde{h}_1$:
+  \begin{itemize}
+  \item $\tilde{h}_1$ has the terms constant or linear in $\bp{p}$, except the
+    constant in $\bp{q}$,
+  \item $\tilde{h}_0$ is everything else.
+  \end{itemize}
+ 
+  We would like to eliminate $\tilde{h}_1$, but we won't be able to do so by
+  solving a linear equation.
+
+  Instead we will solve a linear equation for a function $g$ such that $\phi^*_g
+  \tilde{h}$ is ``better'' than $\tilde{h}$, in some reasonable sense of
+  ``better.''
+\end{frame}
+
+\begin{frame}
+  \frametitle{Smell of the Proof}
+  We expand $\phi^*_g \tilde{h}$ to first order in $g$:
+  \begin{align*}
+    \phi^*_g \tilde{h} &= \tilde{h} + \{g, \tilde{h}\} + o(|g|)\\
+    &= \tilde{h}_0 + \tilde{h}_1 + \{g, \tilde{h}_0\} + \{g, \tilde{h}_1\} +
+      o(|g|).
+  \end{align*}
+  We want to eliminate the terms, other than the term constant in $\bp{q}$, that
+  are not $O(|\bp{p}|)^2$.
+
+  Applying the standard Newton's method would necessitate solving the equation
+  \begin{equation*}
+    \tilde{h}_1 + \{g, \tilde{h}_0\} + \{g, \tilde{h}_1\} \in o(|\bp{p}|).
+  \end{equation*}
+
+  But we will do something a bit different.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Smell of the Proof}
+  We can assume that anything we want is small as long as the choice is
+  justified by the resulting inequalities.
+
+  So suppose that $\{g, \tilde{h}_1\}$ is of order $2$ since $g$ and
+  $\tilde{h}_1$ are both small.
+
+  Then the linear equation that we need to solve is
+  \begin{equation*}
+    \tilde{h}_1 + \{g, \tilde{h_0}\} \in o(|\bp{p}|).
+  \end{equation*}
+
+  This is a \emph{Diophantine differential equation}, and our ability to solve
+  it will rely on the Diophantine vectors that we saw previously.
+\end{frame}
+
+\begin{frame}
   \frametitle{Diophantine Differential Equations}
   Let $g \in \mathcal{C}_\rho$.
   We are going to be solving linear equations of the form
@@ -406,13 +557,13 @@
   \end{equation*}
   with $f \in \mathcal{C}_{\rho'}$ for some $\rho' < \rho$.
 
-  Set
+  Write the functions $f$ and $g$ as Fourier Series:
   \begin{align*}
     f(\bp{q}) &= \sum_{\bp{k} \in \Z^n} f_{\bp{k}} e^{2 \pi i \, \bp{k} \cdot
-      \bp{q}},\\
-    g(\bp{q}) &= \sum_{\bp{k} \in \Z^n} g_{\bp{k}} e^{2 \pi i \, \bp{k} \cdot \bp{q}}.
+      \bp{q}},\qquad g(\bp{q}) = \sum_{\bp{k} \in \Z^n} g_{\bp{k}} e^{2 \pi i \,
+                \bp{k} \cdot \bp{q}}.
   \end{align*}
-  The solution is
+  The solution is given by
   \begin{equation*}
     f_{\bp{k}} = \frac{1}{2 \pi i \, (\bp{k} \cdot \omega)} g_{\bp{k}}.
   \end{equation*}
@@ -431,6 +582,99 @@
   So we need some $\rho' < \rho$ where we have boundedness, but large enough so
   that the limit is nonempty.
 \end{frame}
+
+\begin{frame}
+  \frametitle{Diophantine Differential Equations}
+  We will use the following tool for choosing $\rho'$.
+  \newtheorem{pickrho}{Proposition}
+  \begin{pickrho}
+    If $g \in \mathcal{C}_{\rho}$ and $\omega \in \Omega_{\gamma}$, then for all
+    $\delta \in (0, \rho)$ we have
+    \begin{align*}
+      \norm{f}_{\rho - \delta} &\leq \frac{\kappa_n}{\gamma \delta^{2n}}
+               \norm{g}_{\rho},\\
+      \norm{Df}_{\rho - \delta} &\leq \frac{\kappa_n}{\gamma \delta^{2n+1}}
+                \norm{g}_{\rho},\\
+    \end{align*}
+    where $\kappa_n$ is a constant that depends only on $n$.
+  \end{pickrho}
+  Next we will prove this proposition.
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Equations to Solve}
+  Let's return to $h_1 + \{g, h_0\} \in O(|\bp{p}|^2)$ (the Diophantine differential
+  equation that we had before, but without the tildes and with $o(|\bp{p}|)$
+  replaced by $O(|\bp{p}|^2)$, which is equivalent since our functions are
+  analytic).
+
+  The unknown is $g$, which we take to be degree $1$ in $\bp{p}$:
+  \begin{equation*}
+    g = \lambda \bp{q} + X(\bp{q}) + \sum_{i = 1}^n Y_i(\bp{q}) p_i
+  \end{equation*}
+  Note that only the linear terms of $g$ contribute to the linear terms of $\{g,
+  h_0\}$.
+
+  The unknowns are: $\lambda$, $X$, $Y_i$.
+
+  We can expand $X$ and $Y_i$ as Fourier series, since they are functions of
+  $\bp{q}$ only.
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Equations to Solve}
+  Let $a \in \R$, $\omega \in \Omega_{\gamma}$,
+  $R(\bp{q}, \bp{p}) \in O(|\bp{p}|^3)$, and $\overline{A} = 0$ be the average
+  of $A$ on the torus $\bp{p} = 0$, we can write
+  \begin{align*}
+    h_0(\bp{q}, \bp{p}) &= a + \omega \bp{p} + \frac{1}{2} \bp{p} \cdot
+                          C(\bp{q}) \bp{p} + R(\bp{q}, \bp{p}),\\
+    h_1(\bp{q}, \bp{p}) &= A(\bp{q}) + B(\bp{q}) \bp{p}.
+  \end{align*}
+  We then have
+  \begin{align*}
+    (h_1 + &\{g, h_0\}) (\bp{q}, \bp{p})\\
+           &= \omega \cdot \lambda + A(\bp{q}) + DX(\bp{q})(\omega)\\
+           &\qquad + \Big(B(\bp{q}) + \big( \lambda + DX(\bp{q}) \big) C(\bp{q}) +
+             \omega DY(\bp{q}) \Big) \cdot \bp{p} + O(|\bp{p}|^2).
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Equations to Solve}
+  We need to solve the equations
+  \begin{align*}
+    DX(\bp{q})(\omega) &= -A(\bp{q})\\
+    DY(\bp{q})(\omega) &= -B(\bp{q}) - \big( \lambda + DX(\bp{q}) \big)
+                C(\bp{q})
+  \end{align*}
+  for $X$ and $Y_i$, $i = 1, \ldots, n$.
+
+  These are Diophantine differential equations.
+
+  Since we have the hypothesis $\overline{A} = 0$, we can solve the first
+  equation and find $X \in \mathcal{C}_{\rho'}$ for all $\rho' < \rho$.
+
+  We then substitute into the second equation.
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Equations to Solve}
+  We need to solve the equations
+  \begin{align*}
+    DX(\bp{q})(\omega) &= -A(\bp{q})\\
+    DY(\bp{q})(\omega) &= -B(\bp{q}) - \big( \lambda + DX(\bp{q}) \big)
+                C(\bp{q})
+  \end{align*}
+  for $X$ and $Y_i$, $i = 1, \ldots, n$.
+
+  We can then determine $\lambda$ since the averages of the right-hand sides in
+  the $n$ are all zero.
+
+  Then we can solve the second equation and find $Y_i \in \mathcal{C}_{\rho''}$
+  for all $\rho'' < \rho'$.
+\end{frame}
+
 
 \end{document}
 
