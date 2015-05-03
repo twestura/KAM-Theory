@@ -6,6 +6,31 @@
 \usepackage{wrapfig}
 \input{mathmacros.tex}
 
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.0pt}
+\setlength{\headsep}{0.2in}
+\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\sectionmark}[1]{ \markright{\thesection #1}{} }
+%\lhead[\thepage \qquad Section \leftmark]{}
+%\rhead[]{Travis Westura \qquad \thepage}
+%\lfoot[\thepage]{}
+\cfoot{}
+%\rfoot[]{\thepage}
+\pagestyle{fancy}
+
+\renewcommand{\sectionmark}[1]{ \markright{Section \thesection. #1}{} }
+
+\fancyhf{}
+% TODO the section number and title do not match!
+\fancyhead[LE]{\textsc{\thepage \qquad \nouppercase{\rightmark}} }
+\fancyhead[RO]{\textsc{Travis Westura \qquad \thepage}}
+
+\fancypagestyle{plain}{ %
+  \fancyhf{} % remove everything
+  \renewcommand{\headrulewidth}{0pt} % remove lines as well
+  \renewcommand{\footrulewidth}{0pt}
+}
+
 \title{The Kolmogorov Theorem}
 \author{Travis Westura}
 \date{\today}
@@ -47,9 +72,73 @@ We will return to this statement after building up some intuition for it.
 To start understanding the theorem, let's consider an example to which we would
 like to apply it.
 While staring up at the night sky, one might be driven to wonder, ``Why do the
-planets orbit around the sun and just not fly off by themselves in their own
-directions?''
+planets orbit around the sun and not just crash into the sun or fly off by
+themselves in their own directions?''
+Kolmogorov's Theorem gives us a method to attempt to answer this question.
 
+Let's start by discussing a simplified model of our solar system.
+In this model we will assume that planets have zero mass.
+This assumption is reasonable, as the masses of the planets are extremely small
+compared to that of the sun.
+Thus we may, at least for the moment, consider these masses to be negligible.
+
+A system with $n$ bodies, each with a mass $m_i$ and a position $\bp{x}_i$
+satisfies Netwon's second law: $\bp{F} = m \bp{a}$.
+For each $i$, we have
+\begin{equation*}
+  m_i \bdd{x} = \sum_{j \neq i} \mathrm{G} \nobreak\hspace{.125em plus
+    .14286em} m_i m_j \frac{\bp{x}_j - \bp{x}_i}{|\bp{x}_j - \bp{x}_i|^3}.
+\end{equation*}
+Here, $\mathrm{G} \approx 6.62 \cdot 10^{-11} m^3 / (kg\, s^2)$ is the universal
+gravitational constant.
+On the left hand side we have each planet's mass and its acceleration.
+On the right hand side we have the force that acts on this mass.
+Note that the force is inversely proportional to the square of the distances
+between the forces.
+The top of the fraction contains the vector $\bp{x}_j - \bp{x}_i$ that has
+length $|\bp{x}_j - \bp{x}_i|$.
+To cancel out this length, we divide by $|\bp{x}_j - \bp{x}_i|^3$.
+This gives us the desired inverse proportionality to the square of the distance.
+
+In our model of the solar system we take the sun to be given by the index $0$
+and the planets given by indices from $1$ to $8$ or $9$, depending on the
+reader's opinions of Pluto.
+Now we will examine what happens as the masses of the planets, the $m_j$ for $j
+= 1, \ldots, n$, tend to zero.
+
+Rewriting the previous equations, we have
+\begin{align*}
+  \bdd{x}_0 &= \mathrm{G} \sum_{j = 1}^n m_j \frac{\bp{x}_j -
+              \bp{x}_0}{|\bp{x}_j = \bp{x}_i|^3},\\
+  \bdd{x}_i &= \mathrm{G} m_0 \frac{\bp{x}_0 - \bp{x}_i}{|\bp{x}_0 -
+              \bp{x}_i|^3} + \mathrm{G} \nobreak\hspace{.125em plus
+              .14286em}
+              \sum_{\mathclap{\substack{j=1,\ldots,n\\j\neq i}}}
+              m_j \frac{\bp{x}_j - \bp{x}_i}{|\bp{x}_j - \bp{x}_i|^3}.
+\end{align*}
+Now we keep the mass of the sun $m_0$ constant but let the masses of the planets
+go to zero.
+These equations then become
+\begin{align*}
+  \bdd{x}_0 &= 0,\\
+  \bdd{x}_j &= \mathrm{G} \nobreak\hspace{.125em plus .14286em} \frac{\bp{x}_0 -
+              \bp{x}_i}{|\bp{x}_0 - \bp{x}_i|^3}.
+\end{align*}
+We can even simplify these equations a bit further.
+Since $\bdd{x}_0 = 0$, the body with mass $m_0$ travels in a straight line with
+constant speed.
+Thus we can work in a heliocentric system of coordinates with the sun at the
+center of our solar system with position $\bp{x}_0 = 0$.
+We then have
+\begin{align*}
+  \bdd{x}_0 &= 0,\\
+  \bdd{x}_j &= - \mathrm{G} \nobreak\hspace{.125em plus .14286em}
+              m_0 \frac{\bp{x}_i}{|\bp{x}_i|^3}.
+\end{align*}
+In particular we can note that this system is stable.
+Over time, it will never diverge far from its present state.
+
+% TODO expand on the discussion of the solar system
 
 \section{Hamiltonian Mechanics}
 \label{sec:hamilt-mech}
@@ -113,16 +202,16 @@ And the number that are Diophantine of exponent exactly $2$ are precisely the
 numbers whose continued fractions have bounded entries.
 These numbers form a set of measure zero.
 
-But what about exponents greater than $2$, or rather, of the form $2 + \epsilon$
+But what about exponents greater than $2$, that is, of the form $2 + \epsilon$
 for $\epsilon > 0$?
 In the sense of Lebesgue measure, these numbers are quite abundant, as for any
 $\epsilon > 0$ they form a set of full measure.
 \begin{prop}[Diophantine Numbers with Full Measure]
+  \label{prop:dio-num-with-full-meas}
   For all $\epsilon > 0$, the set of Diophantine numbers of exponent $2 +
   \epsilon$ is of full measure.
 \end{prop}
 \begin{proof}
-  % TODO write proof by 4/27.
   We consider numbers in $\R / \Z$.
   Given any positive integer $q$, there are at most $q$ elements of $\Q / \Z$
   that, in reduced form, have denominator $q$.
@@ -141,14 +230,90 @@ $\epsilon > 0$ they form a set of full measure.
   \begin{equation*}
     2 \gamma \sum_{q = 1}^{\infty} \frac{1}{q^{1 + \epsilon}}.
   \end{equation*}
-  Then we take the intersection over all these sets as $\gamma \to 0$, and we
-  note that this intersection has measure $0$.
+  Take the intersection over all these sets as $\gamma \to 0$ and note that this
+  intersection has measure $0$.
   But this set is the complement of the set of Diophantine numbers of exponent
   $2 + \epsilon$.
   Hence the claim holds.
 \end{proof}
 
-% TODO discuss vectors
+Having this definition for numbers, we want to extend ``irrationality'' to
+vectors.
+As an example, we can consider the solar system with the vector $\omega =
+(\omega_1, \ldots, \omega_n)$, where each $\omega_i$ represents the frequency of
+the $i$th planet's orbit.
+Our statement of Kolmogorov's theorem will require that such a vector be
+irrational according to the following definition.
+\begin{defn}[Diophantine Vector]
+  \diovector{}
+\end{defn}
+We could rewrite the condition in the definition as
+\begin{equation}
+  \label{eq:diovec}
+  \bp{k} \cdot \omega \geq \frac{\gamma}{|\bp{k}|^n}.
+\end{equation}
+
+Again, we want to examine how common it is for such vectors to occur.
+We do not want just exceptional motions to be preserved, but rather we wish that
+most motions are preserved, and that we should not need to look hard to find
+such vectors.
+In the case of numbers, we have that satisfying answer that Diophantine numbers
+have full measure.
+We establish an analogous result for vectors, following a similar proof to the
+one we have just seen.
+\begin{prop}[Diophantine Vectors are of Full Measure]
+  The union
+  \begin{equation*}
+    \Omega = \bigcup_{\gamma > 0} \Omega_{\gamma}
+  \end{equation*}
+  is of full measure.
+\end{prop}
+\begin{proof}
+  Consider the region $S_{\bp{k}, \gamma}$, in which
+  \begin{equation*}
+    |\bp{k} \cdot \omega| \leq \frac{\gamma}{|\bp{k}|^n}
+  \end{equation*}
+  is a region around the hyperplane orthogonal to $\bp{k}$ and with thickness
+  $\frac{2\gamma}{|\bp{k}|^{n+1}}$.
+  Denote the unit cube by $Q$.
+  The part of $S_{\bp{k}, \gamma}$ within $Q$ has measure at most
+  $\frac{M\gamma}{|\bp{k}|^{n+1}}$, where $M$ denotes the constant giving the
+  maximal $(n-1)$-dimensional measure of the intersection of $Q$ with a
+  hyperplane.
+  Now consider the sum
+  \begin{equation*}
+    \sum_{k \in \Z^n \setminus \{0\}} \frac{1}{|\bp{k}|^{n+1}}.
+  \end{equation*}
+  This sum is finite, so the volume of
+  \begin{equation*}
+    \bigcup_{\mathclap{\bp{k} \in \Z^n \setminus \{0\}}} S_{\bp{k}, \gamma} \cap Q
+  \end{equation*}
+  is bounded by some constant times $\gamma$.
+  As before, we now consider the intersection of these sets as $\gamma \to 0$:
+  \begin{equation*}
+     \bigcap_{\gamma > 0} \bigcup_{\bp{k} \in \Z^n \setminus \{0\}} S_{\bp{k},
+       \gamma} \cap Q.
+   \end{equation*}
+   This intersection has measure $0$, and this set is the complement of our
+   desired set $\Omega$.
+   Thus $\Omega$ has full measure.
+
+  Note that this proof is very similar to that of
+  \cref{prop:dio-num-with-full-meas}, and reduces to the case $\epsilon = 1$ if
+  we take $n = 2$.
+\end{proof}
+
+We can now understand the condition $\omega \in \Omega_{\gamma}$ from our
+statement of Kolmogorov's Therorem.
+This requirement means that the vector $\omega$ must be ``suitably irrational,''
+and such vectors are rather ``common'' in the sense of Lebesgue.
+
+% TODO remark about Biare meagerness
+
+\section{KAM and the Solar System}
+\label{sec:kam-solar-system}
+
+
 
 \section{Analytic Functions}
 \label{sec:analytic-functions}
@@ -172,6 +337,9 @@ Consider the function $f(x) = x^3 - x + \frac{\sqrt{2}}{2}$.
 
 \section{Solving Equations}
 \label{sec:solving-equations}
+
+\section{Conclusion}
+\label{sec:conclusion}
 
 
 
