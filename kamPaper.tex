@@ -1,33 +1,30 @@
 \documentclass[twoside,letterpaper,10pt]{article}
 
 \usepackage{mystyle}
+\newcommand{\sgrad}{\nabla_{\sigma}}
 % TODO make the background of theorems darker (or at least make sure that the
 % printer does).
 \usepackage{wrapfig}
 \input{mathmacros.tex}
 
+\newcommand{\T}{\mathbb{T}}
+
 \usepackage{fancyhdr}
 \setlength{\headheight}{14.0pt}
 \setlength{\headsep}{0.2in}
 \renewcommand{\headrulewidth}{0pt}
-%\renewcommand{\sectionmark}[1]{ \markright{\thesection #1}{} }
-%\lhead[\thepage \qquad Section \leftmark]{}
-%\rhead[]{Travis Westura \qquad \thepage}
-%\lfoot[\thepage]{}
 \cfoot{}
-%\rfoot[]{\thepage}
 \pagestyle{fancy}
 
 \renewcommand{\sectionmark}[1]{ \markright{Section \thesection. #1}{} }
 
 \fancyhf{}
-% TODO the section number and title do not match!
 \fancyhead[LE]{\textsc{\thepage \qquad \nouppercase{\rightmark}} }
 \fancyhead[RO]{\textsc{Travis Westura \qquad \thepage}}
 
 \fancypagestyle{plain}{ %
-  \fancyhf{} % remove everything
-  \renewcommand{\headrulewidth}{0pt} % remove lines as well
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
 }
 
@@ -143,7 +140,219 @@ Over time, it will never diverge far from its present state.
 \section{Hamiltonian Mechanics}
 \label{sec:hamilt-mech}
 
+We will need to consider Hamiltonian mechanics in our study of the KAM Theorem.
+Hamiltonian mechanics is a reformulation of Newtonian mechanics.
+It produces the same results, but it a more convenient formulation for some
+problems.
 
+A Hamiltonian mechanical system is given by an even-dimensional manifold, the
+phase space, a symplectic structure on this manifold, and a function $H$.
+This function is called a Hamiltonian function.
+
+Let $(X, \sigma)$ be a symplectic manifold.
+That is, let $X$ be a differentiable manifold and $\sigma$ be a nowhere
+vanishing $2$-form such that $\dif \sigma = 0$.
+A function $H$ on $X$ has a \emph{symplectic gradient}, denoted $\sgrad H$.
+This gradient is defined as the unique vector field $\sgrad H$ such that for any
+vector field $\xi$, we have
+\begin{equation}
+  \label{eq:symplectic-grad}
+  \sigma(\xi, \sgrad H) = \dif H(\xi).
+\end{equation}
+We will be considering a \emph{Hamiltonian differential equation} that makes use
+of this symplectic gradient:
+\begin{equation}
+  \label{eq:hamiltonian-diff-eq}
+  \bd{x} = (\sgrad H) (\bp{x}).
+\end{equation}
+
+Before moving on, let's compare the symplectic gradient and the gradient $\nabla
+f$ of a function $f : \R^n \to \R$.
+This gradient is not an element of $\R$, but rather is the vector
+\begin{equation*}
+  \nabla f =
+  \begin{bmatrix}
+    \pd{f}{x_1}\\
+    \vdots\\
+    \pd{f}{x_n}
+  \end{bmatrix}.
+\end{equation*}
+In the symplectic gradient, we used the symplectic form $\sigma$ to give a
+geometric structure to our underlying space.
+Similarly, we can define the gradient by using the scalar product $\langle
+\cdot, \cdot \rangle$ to provide a geometric structure.
+In comparison to \cref{eq:symplectic-grad}, the gradient $\nabla f$ is the
+unique vector field such that
+\begin{equation*}
+  \dif f(\xi) = \langle \xi, \nabla f \rangle.
+\end{equation*}
+Further, just as we considered a Hamiltonian differential equation in
+\cref{eq:hamiltonian-diff-eq}, we can consider a gradient differential equation:
+\begin{equation*}
+  \bd{x} = \nabla f(\bp{x}).
+\end{equation*}
+The gradient and Hamiltonian differential equations are fundamentally different.
+In the gradient equation, our function $f$ increases along solutions.
+Thus these solutions may never return to their starting points.
+The gradient differential equation prohibits any type of recurrence from
+occurring.
+In contrast, the Hamiltonian differential equation not just allows but
+practically imposes recurrent behavior.
+This difference means we can observe much more interesting recurrent behavior
+when using Hamilton's equation than we could with the gradient equation.
+
+As an example of a Hamiltonian system, let's consider our toy model of the solar
+system from \cref{sec:motivating-example}.
+We take our manifold $X$ to be $\R^{2n}$ with coordinates $(q_1, \ldots, q_n,
+p_1, \ldots, p_n)$.
+Our symplectic form will be given by $\sigma = \sum_{i} \dif p_i \wedge \dif
+q_i$.
+The Hamiltonian differential equation then becomes the \emph{Hamiltonian
+  equations of motion}:
+% TODO could talk about the Math $4200$ two dimensional case of Hamiltonian vs
+% gradient systems
+\begin{equation}
+  \label{eq:hamiltonian-motion-eq}
+  \begin{aligned}
+    \dot{q}_i &= \pd{H}{p_i},\\
+    \dot{p}_i &= - \pd{H}{q_i}.
+  \end{aligned}
+\end{equation}
+
+Now we consider the case of a single body of zero mass.
+It is sufficient to consider the single body system, since the planets' having
+zero mass means that they do not affect each other in our toy system.
+For $\bp{x} \in \R^2$, the equation
+\begin{equation*}
+  \bdd{x} = - \frac{\bp{x}}{|\bp{x}|^3}
+\end{equation*}
+is Hamilton's equation for the manifold $X = \R^2 \times \R^2$ with points
+$(\bp{q}, \bp{p})$, standard symplectic form
+\begin{equation*}
+  \sigma = \dif p_1 \wedge \dif q_1 + \dif p_2 \wedge \dif q_2,
+\end{equation*}
+and Hamiltonian
+\begin{equation*}
+  H(\bp{q}, \bp{p}) = \frac{1}{2} (p_1^2 + p_2^2) - \frac{1}{\sqrt{q_1^2 +
+      q_2^2}}.
+\end{equation*}
+We write $\bp{p} = \pt{p_1\\ p_2}$ and $\bp{q} = \pt{q_1\\q_2}$.
+Now we have
+\begin{align*}
+  (\dif p_1 \wedge \dif q_1 &+ \dif p_2 \wedge \dif q_2)
+                              \left(\left(\pt{\xi_1\\\xi_2}, \pt{\eta_1\\\eta_2}
+  \right), \left( \pt{p1\\p2}, - \frac{1}{(q_1^2 + q_2^2)^{\frac{3}{2}}}
+  \pt{q1\\q2} \right)\right)\\
+                            &= \eta_1 p_1 + \frac{\xi_1 q_1}{(q_1^2 +
+                              q_2^2)^{\frac{3}{2}}} + \eta_2 p_2 + \frac{\xi_2
+                              q_2}{(q_1^2 + q_2^2)^{\frac{3}{2}}}\\
+                            &= \left[ \Dif H \left( \pt{q1\\q1}, \pt{p1\\p2}
+  \right) \right] \left( \pt{\xi_1\\\xi_2}, \pt{\eta_1\\\eta_2} \right).
+\end{align*}
+Following from this computation, we see that
+\begin{equation*}
+  \sgrad H = \left(\bp{p}, - \frac{1}{(q_1^2 + q_2^2)^{\frac{3}{2}}}\bp{q}
+  \right).
+\end{equation*}
+The Hamiltonian differential equation $\bp{x} = \sgrad H(\bp{x})$ is then given
+by
+\begin{align*}
+  q_1' = p_1 &\qquad p_1' = - \frac{q_1}{(q_1^2 + q_2^2)^{\frac{3}{2}}},\\
+  q_2' = p_2 &\qquad p_2' = -\frac{q_2}{(q_1^2 + q_2^2)^{\frac{3}{2}}}.
+\end{align*}
+From here, we can recover the desired $\bdd{x} = - \frac{\bp{x}}{|\bp{x}|^3}$.
+
+Now let's again consider the Hamiltonian Differential Equation
+\cref{eq:hamiltonian-diff-eq}.
+The vector field $\sgrad f$ has a flow that we denote by $\phi_f^t$.
+This flow as two properties:
+\begin{itemize}
+\item $\phi_f^t$ preserves $f$: $f \circ \phi_f^t = f$,
+\item $\phi_f^t$ preserves $\sigma$: $(\phi_f^t)^* \sigma = \sigma$.
+\end{itemize}
+Flows will be central to our proof of Kolmogorov's Theorem.
+We will be constructing a symplectic diffeomorphism and will need the flows of
+Hamiltonian functions to do so.
+
+Further, in our proof we will be constructing Taylor polynomials of functions of
+the form $t \mapsto g \circ \phi_f^t$.
+To perform this construction, we will use the Poisson bracket.
+\begin{defn}[Poisson Bracket]
+  Let $f$ and $g$ be two function on $X$.
+  The Poisson bracket, denoted $\{f, g\}$, is defined by
+  \begin{equation*}
+    \{f, g\} = \sigma(\sgrad f, \sgrad g) = \dif f(\sgrad g) = - \dif g(\sgrad
+ f).
+  \end{equation*}
+\end{defn}
+We say that two functions $f$ and $g$ commute if the Poisson bracket is zero:
+\begin{equation*}
+  \{f, g\} = 0.
+\end{equation*}
+This implies that their flows also commute:
+\begin{equation*}
+  \phi_f(s) \circ \phi_g(t) = \phi_g(t) \circ \phi_f(s).
+\end{equation*}
+The Poisson bracket allows to write Taylor polynomials in the form
+\begin{equation*}
+  f \circ \phi_g^t = f + t\{f, g\} + \frac{t^2}{2} \{\{f, g\}, g\} +
+  \frac{t^3}{3!} \{ \{ \{f, g\}, g\}, g\} + \cdots.
+\end{equation*}
+
+The Poisson bracket is related to the Lie bracket;
+the Lie bracket is the symplectic gradient of the Poisson bracket.
+\begin{prop}[Relation of Poisson and Lie Brackets]
+  For any two functions $f$ and $g$ on a symplectic manifold $(X, \sigma)$, we
+  have
+  \begin{equation*}
+    \sgrad \{f, g\} = [\sgrad f, \sgrad g].
+  \end{equation*} 
+\end{prop}
+\begin{proof}
+  This proof will use the Jacobi identity for the Poisson bracket:
+  \begin{equation*}
+    \{\{f, g\}, h\} + \{\{g, h\}, f\} + \{\{h, f\}, g\} = 0.
+  \end{equation*}
+  Given a function $h$, we can compute
+  \begin{align*}
+    \dif h([\sgrad f, \sgrad g]) &= \dif (\dif h (\sgrad h)) (\sgrad f) - \dif
+                                   (\dif h (\sgrad f)) (\sgrad g)\\
+                                 &= \dif \{h, g\} (\sgrad f) - \dif \{h, f\}
+                       (\sgrad g)\\
+                                 &= \{ \{h, g\}, f\} - \{ \{ h, f\}, g\}\\
+                                 &= \{\{h, g\}, f\} + \{\{f, h\}, g\}\\
+                                 &= \{\{f, g\}, h\}\\
+                                 &= \dif h (\sgrad \{f, g\}).
+  \end{align*}
+\end{proof}
+As an example of a Poisson bracket, let's consider again the Hamiltonian
+equations of motion (\cref{eq:hamiltonian-motion-eq}).
+The Poisson bracket is calculated by
+\begin{equation*}
+  \{f, g\} = \sum_{i=1}^n \left( \pd{f}{q_i} \pd{g}{p_i} - \pd{f}{p_i}
+    \pd{g}{q_i} \right).
+\end{equation*}
+
+Next we discuss what it means for a system to be totally integrable.
+We will be denoting the torus by $\T = \R / \Z$.
+\begin{defn}[Totally Integrable System]
+  A \emph{totally integrable system} is a symplectic manifold $X = \T^n \times
+  \R^n$ with variables $(\bp{q} \in \T^n, \bp{p} \in \R^n)$, symplectic form
+  $\sum_i \dif p_i \wedge \dif q_i$, and Hamiltonian function $H(\bp{p})$
+  depending only on $\bp{p}$.
+\end{defn}
+The first example is to integrate the Hamiltonian equations of motion
+(\cref{eq:hamiltonian-motion-eq}).
+If we take $(\bp{q}_0, \bp{p}_0)$ to be the initial value and let $\omega =
+\pd{H}{\bp{p}}$, then the solution is 
+\begin{align*}
+  \bp{q}(t) &= \bp{q}_0 + t \pd{H}{\bp{p}}(\bp{p}_0) = t \omega(\bp{p}_0),\\
+  \bp{p}(t) &= \bp{p}_0.
+\end{align*}
+Note that in particular, each coordinate $p_1, \ldots p_n$ is conserved, and the
+trajectory is a linear motion on the torus $\T^n \times \{\bp{p}_0\}$.
+
+% TODO discuss more, perhaps using Louville's theorem
 
 \section{Irrationality}
 \label{sec:irrationality}
@@ -245,6 +454,7 @@ the $i$th planet's orbit.
 Our statement of Kolmogorov's theorem will require that such a vector be
 irrational according to the following definition.
 \begin{defn}[Diophantine Vector]
+  \label{def:diovec}
   \diovector{}
 \end{defn}
 We could rewrite the condition in the definition as
@@ -252,6 +462,9 @@ We could rewrite the condition in the definition as
   \label{eq:diovec}
   \bp{k} \cdot \omega \geq \frac{\gamma}{|\bp{k}|^n}.
 \end{equation}
+Also, we will often drop then $n$ from out notation and write simply
+$\Omega_{\gamma}$ instead of $\Omega_{\gamma}^n$ when it is clear that we are
+working in $\R^n$.
 
 Again, we want to examine how common it is for such vectors to occur.
 We do not want just exceptional motions to be preserved, but rather we wish that
@@ -262,9 +475,10 @@ have full measure.
 We establish an analogous result for vectors, following a similar proof to the
 one we have just seen.
 \begin{prop}[Diophantine Vectors are of Full Measure]
-  The union
+  The union over $\gamma > 0$ of sets of Diophantine vectors with constant
+  $\gamma$,
   \begin{equation*}
-    \Omega = \bigcup_{\gamma > 0} \Omega_{\gamma}
+    \Omega = \bigcup_{\gamma > 0} \Omega_{\gamma},
   \end{equation*}
   is of full measure.
 \end{prop}
@@ -277,9 +491,9 @@ one we have just seen.
   $\frac{2\gamma}{|\bp{k}|^{n+1}}$.
   Denote the unit cube by $Q$.
   The part of $S_{\bp{k}, \gamma}$ within $Q$ has measure at most
-  $\frac{M\gamma}{|\bp{k}|^{n+1}}$, where $M$ denotes the constant giving the
-  maximal $(n-1)$-dimensional measure of the intersection of $Q$ with a
-  hyperplane.
+  $\frac{\mathrm{M}\gamma}{|\bp{k}|^{n+1}}$, where $\mathrm{M}$ denotes the
+  constant giving the maximal $(n-1)$-dimensional measure of the intersection of
+  $Q$ with a hyperplane.
   Now consider the sum
   \begin{equation*}
     \sum_{k \in \Z^n \setminus \{0\}} \frac{1}{|\bp{k}|^{n+1}}.
@@ -313,7 +527,64 @@ and such vectors are rather ``common'' in the sense of Lebesgue.
 \section{KAM and the Solar System}
 \label{sec:kam-solar-system}
 
+With these preliminaries out of the way, we are going to discuss Kolmogorov's
+Theorem in the context of our solar system example.
 
+We view the solar as system as an $n$ dimensional torus, where $n$ is the number
+of planets.
+This gives us a geometric way to describe the motions of the planets.
+Suppose that the planets have initial positions given by $\bp{a} = (a_1, \ldots,
+a_n)$.
+Then a trajectory with frequency vector $\omega = (\omega_1, \ldots, \omega_n)$
+is at the point $\bp{a} + t \omega$ at time $t$.
+
+Define a \emph{linear flow on $(\R/\Z)^n$ in the direction $\omega$} to be the
+motion given by
+\begin{equation*}
+  t \mapsto \bp{a} + t \omega = (a_1 + t \omega_1, \ldots, a_n + t \omega_n).
+\end{equation*}
+Such a trajectory is dense on the torus if and only if $\omega$ is irrational
+according to the Diophantine condition from \cref{def:diovec}.
+
+Kolmogorov's Theorem tells us about when motions of a system are preserved, so
+let's examine what it means for two motions to be the same as each other.
+Consider a motion $\bp{x}(t)$ to be a motion of the perturbed system and a
+motion $\bp{x_1}(t)$ to be a motion of the unperturbed system that is dense on a
+torus $T_1$.
+For the motions to be the same, we mean that $\bp{x}(t)$ is dense on the
+corresponding torus $T$ and that it fills in $T$ in the same way that $\bp{x}_1$
+fills in $T_1$.
+% TODO explain the fill in combinatorially part
+% Figure out what Matt had said
+That is, there exists a homeomorphism $\Phi : T \to T_1$ such that
+\begin{equation*}
+  \Phi(\bp{x}(t)) = \bp{x}_1(t).
+\end{equation*}
+
+Using this notation, let's see what Kolmogorov's theorem says for our solar
+system.
+\begin{thm}[Kolmogorov's Theorem Applied to the Solar System]
+  Let $\bp{x}_1(t)$ be a motion of the zero-masses system with Diophantine
+  frequency vector.
+  Then there exists $\epsilon > 0$ such that, if the planets are given masses
+  $m_i < \epsilon$, there exists a trajectory $\bp{x}(t)$ of the perturbed
+  system dense on a torus $T$ and a homeomorphism $\Phi : T \to T_1$ such that
+  $\Phi(\bp{x}(t)) = \bp{x}_1(t)$.
+
+  The set of such trajectories is of positive measure in the set of all
+  trajectories.
+  The probability of being on such a trajectory tends to $1$ as $\epsilon$ tends
+  to zero.
+\end{thm}
+
+We would like that our solar system should fit the hypotheses of this theorem.
+But alas, the periods of the orbits of Jupiter and Saturn at in a $5 : 2$ ratio.
+Thus we have trouble with the important hypothesis of the irrationality of the
+planets' frequency vector.
+However, there are refinements of the theorem that state that there may still
+exist stable motions where the ratios are rational.
+We will not pursue these refinements here.
+% TODO check up on these refinements
 
 \section{Analytic Functions}
 \label{sec:analytic-functions}
@@ -321,13 +592,83 @@ and such vectors are rather ``common'' in the sense of Lebesgue.
 As this is a paper for a complex analysis class, we begin this section by noting
 that the complex analysis is located here.
 
-Consider the function $f(x) = x^3 - x + \frac{\sqrt{2}}{2}$.
+Take another look at the statement of the theorem.
+We will concern ourselves with \cref{eq:sdiffeo}.
+Here we have $H = h \circ \Phi$, where $\Phi$ is a symplectic diffeomorphism.
+Our proof will involve solving for this diffeomorphism $\Phi$.
+% TODO discuss the equations that we are solving
+% Or maybe leave this to the main idea of the proof section
+
+We need a tool for solving equations, and the tool that we use is similar to
+Newton's Method.
+So let's take a moment first to consider what goes on to using Newton's Method.
+
+Newton's Method can be used to solve an equation $f(\bp{x}) = 0$.
+The process involves choosing an initial guess $\bp{x}_0$.
+Then successive points $\bp{x}_i$ are defined by
+\begin{equation*}
+  \bp{x}_{i+1} = \bp{x}_i - [Df(\bp{x}_i)]^{-1} f(\bp{x}_i).
+\end{equation*}
+These points $\bp{x}_{i+1}$ will, under ``good'' conditions, converge to a
+solution to the equation.
+
+To see why some additional conditions are necessary, consider the function $f(x)
+= x^3 - x + \frac{\sqrt{2}}{2}$.
 \begin{wrapfigure}{o}{0.5\textwidth}
   \begin{center}
     \includegraphics[width=0.48\textwidth]{newtonfail}
   \end{center}
   \caption{$f(x) = x^3 - x + \frac{\sqrt{2}}{2}$}
 \end{wrapfigure}
+Let our initial guess be $x_0 = 0$.
+Note that this function has derivative $f'(x) = 3x^2 - 1$.
+Thus plugging in our initial guess gives us
+\begin{equation*}
+  x_1 = x_0 - \frac{1}{f'(x_0)} f(x_0) = \frac{\sqrt{2}}{2}.
+\end{equation*}
+But then we encounter a problem once we use $x_1$ to determine $x_2$.
+\begin{equation*}
+  x_2 = x_1 - \frac{1}{f'(x_1)} f(x_1) = 0.
+\end{equation*}
+This brings us back to our initial guess!
+So now Netwon's method will oscillate between $0$ and $\frac{\sqrt{2}}{2}$ and
+will not converge to a solution.
+
+The additional conditions that we need for the convergence of Newton's Method
+are given in a theorem by Kantorovitch.
+% TODO consider stating the theorem
+In order to guarantee convergence, we need a bound on the second derivative of
+the function $f$.
+
+In solving for the diffeomorphism $\Phi$ in the proof of Kolmogorov's theorem,
+we will be using a similar technique to Newton's method.
+Where with Newton's method we needed a bound on the second derivative, we will
+need some type of analogous condition for our iterative process.
+We need some way to measure ``size,'' that is, we ned to choose a norm for our
+functions.
+
+First let's recall the definition of a Banach algebra.
+\begin{defn}[Banach Algebra]
+  Let $k$ be $\R$ or $\C$.
+  A \emph{normed algebra} over $k$ is an algebra $\mathcal{A}$ over $k$ with a
+  sub-multiplicative norm $\norm{\cdot}$.
+  That is, for all $x, y \in \mathcal{A}$, we have
+  \begin{equation*}
+    \norm{xy} \leq \norm{x}\norm{y}.
+  \end{equation*}
+  If $\mathcal{A}$ is a Banach space, then it is called a Banach algebra.
+\end{defn}
+Let $X \subseteq \C^k$ be compact, and let the caligraphic letter $\mathcal{X}$
+be the Banach algebra of continuous functions on $X$ that are analytic in the
+interior and have the sup norm
+\begin{equation*}
+  \norm{f}_X = \sum_{\bp{x} \in X} |f(\bp{x})|.
+\end{equation*}
+Here we use the normal absolute value as the standard Euclidean norm on $\C^n$.
+
+
+% TODO use these somewhere useful
+\domains{}
 
 \section{Main Idea of the Proof}
 \label{sec:main-idea-proof}
@@ -340,8 +681,6 @@ Consider the function $f(x) = x^3 - x + \frac{\sqrt{2}}{2}$.
 
 \section{Conclusion}
 \label{sec:conclusion}
-
-
 
 \end{document}
 
