@@ -7,6 +7,8 @@
 \usepackage{wrapfig}
 \input{mathmacros.tex}
 
+\numberwithin{equation}{section}
+
 \newcommand{\T}{\mathbb{T}}
 
 \usepackage{fancyhdr}
@@ -28,7 +30,7 @@
   \renewcommand{\footrulewidth}{0pt}
 }
 
-\title{The Kolmogorov Theorem}
+\title{Kolmogorov's Theorem}
 \author{Travis Westura}
 \date{\today}
 
@@ -41,9 +43,10 @@
 \begin{abstract}
   This paper gives a proof of the Kolmogorov Theorem on the conservation of
   invariant tori.
-  We follow the approach given by Hubbard and Ilyashenko in .
+  We follow the approach given by Hubbard and Ilyashenko in \cite{hi02}.
   Their proof is similar to the one given by Bennettin, Galgani, Giorgilli, and
-  Strelcyn in , which itself resembles Kolmogorov's original argument.
+  Strelcyn in \cite{bggs84}, which itself resembles Kolmogorov's original
+  argument.
   % TODO write citations and confirm correctness of the last claim by rereading
   % the other paper's abstract.
   % Also check the spelling of their names and add them to the dictionary.
@@ -265,7 +268,7 @@ From here, we can recover the desired $\bdd{x} = - \frac{\bp{x}}{|\bp{x}|^3}$.
 Now let's again consider the Hamiltonian Differential Equation
 \cref{eq:hamiltonian-diff-eq}.
 The vector field $\sgrad f$ has a flow that we denote by $\phi_f^t$.
-This flow as two properties:
+This flow has two properties:
 \begin{itemize}
 \item $\phi_f^t$ preserves $f$: $f \circ \phi_f^t = f$,
 \item $\phi_f^t$ preserves $\sigma$: $(\phi_f^t)^* \sigma = \sigma$.
@@ -299,7 +302,7 @@ The Poisson bracket allows to write Taylor polynomials in the form
   \frac{t^3}{3!} \{ \{ \{f, g\}, g\}, g\} + \cdots.
 \end{equation*}
 
-The Poisson bracket is related to the Lie bracket;
+The Poisson bracket is related to the Lie bracket:
 the Lie bracket is the symplectic gradient of the Poisson bracket.
 \begin{prop}[Relation of Poisson and Lie Brackets]
   For any two functions $f$ and $g$ on a symplectic manifold $(X, \sigma)$, we
@@ -667,20 +670,337 @@ interior and have the sup norm
 Here we use the normal absolute value as the standard Euclidean norm on $\C^n$.
 
 
+We consider three regions:
 % TODO use these somewhere useful
 \domains{}
+Denote by $\mathcal{B}_{\rho}$, $\mathcal{C}_{\rho}$, and $\mathcal{A}_{\rho}$
+the corresponding Banach algebras.
+We can expand elements of $\mathcal{B}_{\rho}$ as power series, and elements of
+$\mathcal{C}_{\rho}$ as Fourier series:
+\begin{equation*}
+  f(\bp{z}) = \sum_{\bp{k} \in \Z^n} f_{\bp{k}} \e^{2 \pi \i \bp{k} \cdot \bp{z}}.
+\end{equation*}
+This Fourier series expansion will be important in \cref{sec:dioph-diff-equat}.
+
+Let's take a look at how we can bound derivatives of analytic functions,
+analogous to how we use the second derivative to bound the derivative of
+functions in Kantorovitch's Theorem.
+We will use Cauchy's Inequalities on Balls.
+\begin{thm}[Cauchy's Inequalities on Balls]
+  If $f \in \mathcal{B}_{\rho}$, then
+  \begin{align*}
+    \norm{\Dif f}_{\rho - \delta} &\leq \frac{1}{\delta} \norm{f}_{\rho},\\
+    \norm{\Dif^2 f}_{\rho - \delta} &\leq \frac{4}{\delta^2} \norm{f}_{\rho}.
+  \end{align*}
+  As a corollary, the case $\delta = \rho$ bounds the derivatives at the center
+  of balls:
+  \begin{align*}
+    |\Dif f(0)| &\leq \frac{1}{\rho} \norm{f}_{\rho},\\
+    |\Dif^2 f(0)| &\leq \frac{4}{\rho^4} \norm{f}_{\rho}.
+  \end{align*}
+\end{thm}
+\begin{proof}
+  % TODO expand on proof and include more details
+  Take $\bp{z} \in B_{\rho - \delta}$ and $\bp{u} \in \C^n$.
+  Since $B_{\delta}(\bp{z}) \subseteq B_{\rho}$, the function
+  \begin{equation*}
+    g : t \mapsto f(\bp{z} + t \delta \bp{u})
+  \end{equation*}
+  is defined on the unit disc.
+  The normal Cauchy inequality implies that
+  \begin{equation*}
+    \delta|(\Dif f(\bp{z})) \bp{u}| = |g'(0)| \leq \norm{g}_{1} \leq
+    \norm{f}_{\rho}.
+  \end{equation*}
+  Applying the argument twice gives the result for the second derivative:
+  \begin{equation*}
+    |\Dif^2 f(\bp{z})(\bp{u}, \bp{v})| \leq \frac{2}{\delta} \norm{\Dif f
+      (\bp{z})(\bp{u})}_{\rho - \frac{\delta}{2}}|\bp{v}| \leq
+    \frac{4}{\delta^2} \norm{f}_{\rho} |\bp{u}||\bp{v}|.
+  \end{equation*}
+\end{proof}
 
 \section{Main Idea of the Proof}
 \label{sec:main-idea-proof}
 
+Let's take another look at the statement of Kolmogorov's theorem and recall
+\cref{eq:sdiffeo}, where we have $H = h \circ \Phi$:
+\begin{equation*}
+  H(\bp{Q}, \bp{P}) = A + \omega \bp{P} + R(\bp{Q}, \bp{P}).
+\end{equation*}
+This equation is an equation for a diffeomorphism $\Phi$, and the proof involves
+solving for this diffeomorphism.
+We would like to use Newton's method to do this solving, but that in itself is
+not quite sufficient for out purposes.
+However, we can still do something with a similar flavor.
+
+The proof uses an iterative process in which we obtain the diffeomorphism $\Phi$
+as a limit of $\Phi_i$, where
+\begin{equation*}
+  \Phi_i = \phi_i \circ \phi_{i - 1} \circ \cdots \circ \phi_1.
+\end{equation*}
+Here, $\phi_i$ denotes the Hamiltonian flow $\phi_{g_i}$ for a Hamiltonian
+function $g_i$.
+This $g_i$ is the unknown for which we solve.
+
+% TODO pause and take a moment to reflect on how we went from a diffeomorphism
+% to a function.
+Let's take a moment to pause and reflect on what was just done.
+Instead of solving for a diffeomorphism $\Phi$, at each iteration we are solving
+for a Hamiltonian function $g_i$.
+This simplification is rather important, as a diffeomorphism can be a rather
+complicated object.
+The $g_i$ are much easier to reason about.
+Furthermore, the map $\phi_{g_i}$ is itself a symplectic diffeomorphism.
+% TODO continue reflection
+
+At the $i$th iteration we have a Hamiltonian $\tilde{h} = \Phi_i^* h$.
+We expand $\tilde{h}$ up to order $2$ in $\bp{p}$, and the coefficients are
+Fourier series in $\bp{q}$.
+We write $\tilde{h} = \tilde{h}_0 + \tilde{h}_1$, where
+\begin{itemize}
+\item $\tilde{h}_1$ has the terms constant or linear in $\bp{p}$, except the
+  constant in $\bp{q}$,
+\item $\tilde{h}_0$ is everything else.
+\end{itemize}
+We would like to eliminate $\tilde{h}_1$, be we won't be able to do so by
+solving a linear equation.
+Instead we will solve a linear equation for a function $g$ such that
+$\phi_g^*\tilde{h}$ is ``better'' than $\tilde{h}$, in some reasonable sense of
+``better.''
+
+We expand $\phi_g^* \tilde{h}$ to first order in $g$.
+This gives us
+\begin{align*}
+  \phi_g^* \tilde{h} &= \tilde{h} + \{g, \tilde{h}\} + o(|g|)\\
+                     &= \tilde{h}_0 + \tilde{h}_1 + \{g, \tilde{h}_0\} + \{g,
+                       \tilde{h}_1\} + o(|g|).
+\end{align*}
+We want to eliminate the terms, other than the term constant in $\bp{q}$, that
+are not $O(|\bp{p}|)^2$.
+Applying the standard Newton's method would necessitate solving the equation
+\begin{equation*}
+  \tilde{h}_1 + \{g, \tilde{h}_0\} + \{g, \tilde{h}_1\} \in o(|\bp{p}|).
+\end{equation*}
+But we will do something a bit different.
+
+We can assume that anything we want is small as long as the choice is justified
+by the resulting inequalities.
+So suppose that $\{g, \tilde{h}_1\}$ is of order $2$ since $g$ and $\tilde{h}_1$
+are both small.
+Then the linear equation that we need to solve is
+\begin{equation*}
+  \tilde{h}_1 + \{g, \tilde{h}_0\} \in o(|\bp{p}|).
+\end{equation*}
+Thus we need to solve this \emph{Diophantine differential equation}.
+Our ability to solve it relies on the Diophantine vectors that we saw previously
+in \cref{sec:irrationality}.
+
 \section{Diophantine Differential Equations}
 \label{sec:dioph-diff-equat}
+
+Let $g \in \mathcal{C}_{\rho}$.
+We are going to be solving linear equations of the form
+\begin{equation*}
+  \Dif f(\omega) = \sum_{i = 1}^n \omega_i \pd{f}{q_i} = g,
+\end{equation*}
+with $f \in \mathcal{C}_{\rho'}$ for some $\rho' < \rho$.
+Recall, as was mentioned in \cref{sec:analytic-functions}, that since $f \in
+\mathcal{C}_{\rho'}$ and $g \in \mathcal{C}_{\rho}$, we can write $f$ and $g$ as
+Fourier Series.
+\begin{align*}
+  f(\bp{q}) &= \sum_{\bp{k} \in \Z^n} f_{\bp{k}} \e^{2 \pi \i \bp{k} \cdot
+    \bp{q}},\\
+  g(\bp{q}) &= \sum_{\bp{k} \in \Z^n} g_{\bp{k}} \e^{2 \pi \i \bp{k} \cdot \bp{q}}.
+\end{align*}
+The solution is given by
+\begin{equation}
+  \label{eq:dio-sol}
+  f_{\bp{k}} = \frac{1}{2 \pi \i (\bp{k} \cdot \omega)}g_{\bp{k}}.
+\end{equation}
+We need $g_0$ to be zero.
+Then $f_0$ is arbitrary, and otherwise the series for $f$ is unique.
+
+Take note of the $(\bp{k} \cdot \omega)$ in the denominator of \cref{eq:dio-sol}
+and compare this to \cref{eq:diovec}.
+Dividing by zero in \cref{eq:dio-sol} would mean that there is no solution.
+So we need the Diophantine condition for the vector $\omega$ to ensure that we
+do not divide by zero in \cref{eq:dio-sol}.
+Hence the convergence properties of $f$ depend on the Diophantine properties of
+$\omega$.
+
+But even though this condition gives us convergence for $\rho$, we might not
+have boundedness.
+So we need some $\rho' < \rho$ where we have boundedess.
+But we must choose $\rho'$ large enough so that the limit is nonempty.
+Thus the choice of $\rho'$ must be done rather ``carefully.''
+
+We will use the following tool for choosing $\rho'$.
+% TODO name proposition
+\begin{prop}
+  If $g \in \mathcal{C}_{\rho}$ and $\epsilon \in \Omega_{\gamma}$, then for all
+  $\delta$ such that $0 < \delta < \rho$, we have the following two
+  inequalities:
+  \begin{align*}
+    \norm{f}_{\rho - \delta} &\leq \frac{\kappa_n}{\gamma
+                               \delta^{2n}}\norm{g}_{\rho},\\
+    \norm{\Dif f}_{\rho - \delta} &\leq \frac{\kappa_n}{\gamma \delta^{2n + 1}}
+                    \norm{g}_{\rho}.
+  \end{align*}
+  Here, $\kappa_n$ is a constant that depends only on $n$.
+\end{prop}
+\begin{proof}
+  For $\bp{y} \in \R^n$ with $|\bp{y} \leq \rho$ (in particular $\bp{y} = \rho
+  \frac{\bp{k}}{|\bp{k}|})$, the function
+  \begin{equation*}
+    \bp{q} \mapsto g(\bp{q} - \i \bp{y})
+  \end{equation*}
+  is continuous and periodic in $\bp{q}$ of period $1$.
+  This function can be written
+  \begin{equation*}
+    g(\bp{q} - \i \bp{y}) = \sum_{\bp{k} \in \Z^n} g_{\bp{k}} \e^{2 \pi \i
+      \bp{k} \cdot (\bp{q} - \i \bp{y})} = \sum_{\bp{k} \in \Z^n}
+    \left(g_{\bp{k}} \e^{2 \pi \bp{k} \cdot \bp{y}} \right) \e^{2 \pi \i \bp{k}
+      \cdot \bp{q}}.
+  \end{equation*}
+  By Parseval's theorem, we have
+  \begin{equation*}
+    \norm{g}_{\rho}^2 \geq \int_{\T^n} |g(\bp{q} - \i \bp{y})|^2 |\dif ^n
+    \bp{q}| = \sum_{\bp{k} \in \Z^n} |g_{\bp{k}}|^2 \e^{4 \pi \bp{k} \cdot \bp{y}}.
+  \end{equation*}
+  Since the series has positive numbers, we have
+  \begin{equation*}
+    \norm{g}_{\rho}^2 \geq |g_{\bp{k}}|^2 \e^{4 \pi \rho|\bp{k}|}.
+  \end{equation*}
+
+  Using the Diophantine-ness of $\omega$ and the Fourier coefficients
+  $f_{\bp{k}}$, we have
+  \begin{equation*}
+    |f_{\bp{k}}| \leq \frac{1}{2 \pi \gamma} \norm{g}_{\rho} |\bp{k}|^n \e^{-2
+      \pi |\bp{k}| \rho}.
+  \end{equation*}
+
+  Next we split the proposition into two parts: the first part dealing with the
+  $f$ case and the second part dealing with the $\Dif f$ case.
+
+  First we handle the case for $f$.
+  For $|\bp{q}| \leq \rho - \delta$, we can write
+  \begin{align*}
+    \left| f_{\bp{k}} \e^{2 \pi \i (\bp{k} \cdot \bp{q})} \right|
+    &\leq \sum_{\bp{k} \in \Z^n} \frac{|\bp{k}|^n}{2\pi\gamma} \norm{g}_{\rho}
+      \e^{-2 \pi \rho |\bp{k}|(\rho - \delta)}\\
+    &= \frac{\norm{g}_{\rho}}{2 \pi \gamma} \sum_{\bp{k} \in \Z^n} |\bp{k}|^n
+      \e^{-2 \pi |\bp{k}|\delta}.
+  \end{align*}
+  We then rewrite the sum on the right:
+  \begin{equation*}
+    \sum_{\bp{k} \in \Z^n} |\bp{k}|^n \e^{-2 \pi |\bp{k}|\delta} = \frac{1}{(2
+      \pi \delta)^{2n}} \left((2 \pi \delta)^n \sum_{\bp{k}' \in 2 \pi \delta
+        \Z^n} |\bp{k}'|^n \e^{-|\bp{k}'|} \right).
+  \end{equation*}
+  As $\delta \to 0$, the expression inside the parentheses approaches
+  \begin{equation*}
+    \int_{\R^n} |\bp{x}|^n \e^{-|\bp{x}|} |\dif^n \bp{x}|.
+  \end{equation*}
+  Since the integral is convergent there exist $\kappa_n'$ such that for $\delta
+  \leq 1$, it holds that
+  \begin{equation*}
+    \sum_{\bp{k} \in \Z^n} |\bp{k}|^n \e^{-2 \i |\bp{k}|\delta} \leq
+    \frac{\kappa_n'}{(2 \pi \delta)^{2n}}.
+  \end{equation*}
+  Thus we are finished with the $f$ part of the proof.
+
+  The $\Dif f$ part of the proof is similar.
+  We use
+  \begin{equation*}
+    \Dif f(\bp{q})(\bp{u}) = 2 \pi \i \sum(\bp{k} \cdot \bp{u}) f_{\bp{k}} \e^{2
+      \pi \i (\bp{k} \cdot \bp{q})}.
+  \end{equation*}
+  Then we obtain the inequality
+  \begin{equation*}
+    |\Dif(\bp{q})(\bp{u})| \leq \frac{|\bp{u}| \norm{g}_{\rho}
+      \kappa_n''}{\gamma(2 \pi \gamma)^{n+1}}.
+  \end{equation*}
+
+  To complete the proof of the proposition, take
+  \begin{equation*}
+    \kappa_n := \max \left\{\frac{\kappa_n'}{(2n)^{2n}},
+      \frac{\kappa_n''}{(2n)^{2n+1}}\right\}.
+  \end{equation*}
+\end{proof}
 
 \section{Solving Equations}
 \label{sec:solving-equations}
 
+Let's return to our previous equation
+\begin{equation*}
+  h_1 + \{g, h_0\} \in O(|\bp{p}|^2).
+\end{equation*}
+% TODO reference first equation
+This equation is the Diophantine differential equation that we had before, but
+without tildes and with $o(|\bp{p}|)$ replaced by $O(|\bp{p}|^2)$, which is
+equivalent since our functions are analytic.
+The unknown is $g$, which we take to be degree $1$ in $\bp{p}$:
+\begin{equation*}
+  g = \lambda \bp{q} X(\bp{q}) + \sum_{i=1}^n Y_i(\bp{q}) p_i.
+\end{equation*}
+Note that only the linear terms of $g$ contribute to the linear terms of $\{g,
+h_0\}$.
+The unknowns are $\lambda$, $X$, and $Y_i$.
+We can expand $X$ and $Y_i$ as Fourier series, since they are functions of
+$\bp{q}$ only.
+
+Let $a \in \R$, $\omega \in \Omega_{\gamma}$, $R(\bp{q}, \bp{p}) \in
+O(|\bp{p}|^3)$, and $\overline{A} = 0$, where $\overline{A}$ is the average of
+$A$ on the torus $\bp{p} = 0$.
+We can then write
+\begin{align*}
+  h_0(\bp{q}, \bp{p}) &= a + \omega \bp{p} + \frac{1}{2} \bp{p} \cdot C(\bp{q})
+                        \bp{p} + R(\bp{q}, \bp{p}),\\
+  h_1(\bp{q}, \bp{p}) &= A(\bp{q}) + B(\bp{q}) \bp{p}.
+\end{align*}
+We then have
+\begin{equation*}
+  (h_1 + \{g, h_0\}) (\bp{q}, \bp{p}) = \omega \cdot \lambda + A(\bp{q}) + \Dif
+  X(\bp{q}) (\omega) + \Big( B(\bp{q}) + \big(\lambda + \Dif X(\bp{q}) \big)
+  C(\bp{q}) + \omega \Dif Y(\bp{q}) \Big) \cdot \bp{p} + O(|\bp{p}|^2).
+\end{equation*}
+
+We need to solve the equations
+\begin{align*}
+  \Dif X(\bp{q}) (\omega) &= - A(\bp{q})\\
+  \Dif Y(\bp{q}) (\omega) &= -B(\bp{q}) - \big(\lambda + \Dif
+     X(\bp{q})\big)C(\bp{q})
+\end{align*}
+for $X$ and $Y_i$, $i = 1, \ldots, n$.
+These are Diophantine differential equations.
+Since we have the hypothesis $\overline{A} = 0$, we can solve the first equation
+and find $X \in \mathcal{C}_{\rho'}$ for all $\rho' < \rho$.
+We then substitute into the second equation.
+We can then determine $\lambda$ since the averages of the right-hand sides in
+the $n$ are all zero.
+Then we can colve the second equation and find $Y_i \in \mathcal{C}_{\rho''}$
+for all $\rho'' < \rho'$.
+Iterating the process requires choosing $\rho'$ and $\rho''$ ``carefully.''
+
+
 \section{Conclusion}
 \label{sec:conclusion}
+
+With everything that we have discussed, the statement of Kolmogorov's Theorem
+should now be very much readable.
+We have an equation that we solve for a diffeomorphism.
+This equation is solved iteratively using an analogue of Newton's Method.
+We used analytic functions in order for this technique to converge properly,
+analogous to how we would need to bound the second derivative is we were to
+apply Kantorovitch's Theorem when using Newton's Method.
+And we need the Diophantine vectors in order to avoid dividing by zero when
+solving for our Fourier coefficients.
+% TODO what have we missed
+
+% TODO add works to bibliography and update references throughout paper
+\bibliographystyle{plain}
+\bibliography{bibliography}
 
 \end{document}
 
