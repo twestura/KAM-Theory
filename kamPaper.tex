@@ -619,14 +619,14 @@ Then successive points $\bp{x}_i$ are defined by
 These points $\bp{x}_{i+1}$ will, under ``good'' conditions, converge to a
 solution to the equation.
 
-To see why some additional conditions are necessary, consider the function $f(x)
-= x^3 - x + \frac{\sqrt{2}}{2}$.
 \begin{wrapfigure}{o}{0.5\textwidth}
   \begin{center}
     \includegraphics[width=0.48\textwidth]{newtonfail}
   \end{center}
   \caption{$f(x) = x^3 - x + \frac{\sqrt{2}}{2}$}
 \end{wrapfigure}
+To see why some additional conditions are necessary, consider the function $f(x)
+= x^3 - x + \frac{\sqrt{2}}{2}$.
 Let our initial guess be $x_0 = 0$.
 Note that this function has derivative $f'(x) = 3x^2 - 1$.
 Thus plugging in our initial guess gives us
@@ -643,9 +643,46 @@ will not converge to a solution.
 
 The additional conditions that we need for the convergence of Newton's Method
 are given in a theorem by Kantorovitch.
-% TODO consider stating the theorem
 In order to guarantee convergence, we need a bound on the second derivative of
 the function $f$.
+For completeness, let's state this theorem.
+
+\begin{thm}[Kantorovitch]
+  Let $E$ and $F$ be Banach spaces, $U$ be an open subset of $E$, and $f : U \to
+  F$ be $C^1$.
+  Suppose that $\bp{x}_0 \in U$ is a point where $[\Dif f(\bp{x}_0)] : E \to F$
+  is an isomorphism.
+  Set $h_0 = -[\Dif f(\bp{x}_0)]^{-1}(f(\bp{x}_0))$, $\bp{x}_1 = \bp{x}_0 +
+  h_0$, and define the ball $U_0 = B_{\norm{h_0}}(\bp{x}_1)$.
+  Then if the following hold:
+  \begin{enumerate}
+  \item $U_0 \subset U$
+  \item $\norm{[\Dif f(\bp{y}_1)] - [\Dif f(\bp{y}_2]} \leq M$ for all
+    $\bp{y}_1, \bp{y}_2 \in U_0$
+  \item $\norm{f(\bp{x})} \norm{[\Dif f(\bp{x}_0)]^{-1}}^2 M \leq \frac{1}{2}$
+  \end{enumerate}
+  then the equation $f(\bp{x}) = 0$ has a unique solution in $U_0$, and Newton's
+  method starting from $\bp{x}_0$ is defined for all $i$ and converges to this
+  solution.
+  If moreover we have
+  \begin{equation*}
+    \norm{f(\bp{x})} \norm{[\Dif f(\bp{x}_0)]^{-1}}^2 M = k < \frac{1}{2},
+  \end{equation*}
+  Then the method is \emph{superconvergent}.
+  That is, if we put
+  \begin{align*}
+    C &= \frac{1 - k}{2(1 - 2k)}\norm{[\Dif f(\bp{x}_0)]^{-1}} M,\\
+    \bp{x}_{i+1} &= \bp{x}_i + h_im\\
+    h_{i+1} &= -[\Dif f(\bp{x}_i)]^{-1} f(\bp{x}_i),\\
+  \end{align*}
+  then $\norm{h_{i+1}} \leq C \norm{h_i}^2$.
+\end{thm}
+Note that superconvergence corresponds to doubling the number of correct digits
+at each iteration.
+Geometric convergence differs from superconvergence, as it adds only a fixed
+number of significant figures at each iteration.
+The interested reader can follow a proof given in \cite{hh09} and fill in some
+minor details to apply it to this more general case.
 
 In solving for the diffeomorphism $\Phi$ in the proof of Kolmogorov's theorem,
 we will be using a similar technique to Newton's method.
@@ -1007,9 +1044,13 @@ following it without considering the work before it we may miss out on what make
 it so succinct, and why the simplifications that it makes are so powerful and
 useful.
 % TODO cite Arnold's original proof and many other proofs of the theorem
+We can tell that the proof is difficult merely by the fact that Moser's proof,
+given in %TODO cite
+involves functions that are $333$ times differentiable.
 
 % TODO add works to bibliography and update references throughout paper
 % TODO add Lee's Smooth Manifolds as a reference
+\nocite{*}
 \bibliographystyle{plain}
 \bibliography{bibliography}
 
