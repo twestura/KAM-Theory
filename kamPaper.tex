@@ -41,34 +41,69 @@
 % I know that I'm not supposed to use a citation in an abstract, but Hubbard
 % did so in his paper, so I guess it is fair game.
 \begin{abstract}
-  This paper gives a proof of the Kolmogorov Theorem on the conservation of
+  This paper discusses a proof of the Kolmogorov Theorem on the conservation of
   invariant tori.
   We follow the approach given by Hubbard and Ilyashenko in \cite{hi02}.
-  Their proof is similar to the one given by Bennettin, Galgani, Giorgilli, and
-  Strelcyn in \cite{bggs84}, which itself resembles Kolmogorov's original
+  Their proof is influenced by the one given by Bennettin, Galgani, Giorgilli,
+  and Strelcyn in \cite{bggs84}, which itself resembles Kolmogorov's original
   argument.
-  % TODO write citations and confirm correctness of the last claim by rereading
-  % the other paper's abstract.
-  % Also check the spelling of their names and add them to the dictionary.
-  % Do by 4/27.
 \end{abstract}
-
 
 \section{Introduction}
 \label{sec:introduction}
 
-% TODO Write up historical information in the next paragraph.
+Andrey Kolmogorov announced an important theorem in the International Congress
+of Mathematicians in $1954$.
+However, he never wrote down a proof of this theorem.
+Vladimir Arnold give a proof in $1963$, and J{\"u}rgen Moser proved a related
+result in $1962$.
+The resulting theory is called KAM Theory, named after the three of them.
 
-Arnold recalls in \cite{a97} how Kolmogorov was influenced by \cite{f64} as a
-child.
-% TODO fix citations, just here right now to get a compilation
+Arnold recalls in \cite{a97} how Kolmogorov had been considering the problem
+since he was a child.
+He was influenced by reading \emph{The Flammarion Book of Astronomy}, where
+\cite{f64} is a more recent edition than the one Kolmogorov would have read.
+After Stalin died Kolmogorov entered a period of great mathematical
+productivity.
+This theorem was born out of this period.
 
-But before moving on, let's take a look at our main goal:
-\begin{thm}[The Kolmogorov Theorem]
+While Kolmogorov never wrote down a proof, many others did, or at least
+attempted to.
+As already noted, Arnold wrote a proof in $1963$ and Moser proved a related
+result in $1962$.
+But the proof is quite difficult, as Arnold's original argument was over $60$
+pages and quite difficult to understand.
+% TODO cite Kolmorogrov' conference, Arnold's proof, and Moser's proof
+The argument with which we concern ourselves is given by Hubbard and Ilyshenko
+in \cite{hi02}.
+This proof, while still containing many messy, technical details, is much
+shorter.
+We will discuss the motivation behind the main ideas and key concepts of this
+proof.
+
+Before moving on, let's take a look at our main goal:
+\begin{thm}[Kolmogorov's Theorem]
   \label{thm:KAM}
-  \KAM{}
+  \KAM{} In particular the torus $\bp{P} = 0$ is invariant under the flow
+  $\sgrad H$, and on this torus the flow $\phi_H$ is linear with direction
+  $\omega$.
 \end{thm}
 We will return to this statement after building up some intuition for it.
+For now, let's just note that the proof involves solving \cref{eq:sdiffeo} for
+the symplectic diffeomorphism $\Phi$.
+
+In this paper we will follow the proof given by Hubbard and Ilyshenko given in
+\cite{hi02}.
+We will begin by examining a toy example of the solar system, to which we will
+apply the theorem.
+This example will help us in understanding the statement of the theorem and the
+tools that we will need in the proof.
+We will discuss the basics of Hamiltonian mechanics and the notion of irrational
+vectors while examining this example.
+Then we will begin examining the technique of the proof and examine the role
+played by analytic functions.
+Finally we will put all of this together and explain the main ideas of the
+proof, leaving out some of the messy, technical details.
 
 \section{A Motivating Example}
 \label{sec:motivating-example}
@@ -149,8 +184,8 @@ Over time, it will never diverge far from its present state.
 
 We will need to consider Hamiltonian mechanics in our study of the KAM Theorem.
 Hamiltonian mechanics is a reformulation of Newtonian mechanics.
-It produces the same results, but it a more convenient formulation for some
-problems.
+The theories produce the same results, but often one of them is a more
+convenient formulation for some problems than is the other.
 
 A Hamiltonian mechanical system is given by an even-dimensional manifold, the
 phase space, a symplectic structure on this manifold, and a function $H$.
@@ -212,8 +247,10 @@ As an example of a Hamiltonian system, let's consider our toy model of the solar
 system from \cref{sec:motivating-example}.
 We take our manifold $X$ to be $\R^{2n}$ with coordinates $(q_1, \ldots, q_n,
 p_1, \ldots, p_n)$.
-Our symplectic form will be given by $\sigma = \sum_{i} \dif p_i \wedge \dif
-q_i$.
+Our symplectic form will be given by
+\begin{equation*}
+  \sigma = \sum_{i} \dif p_i \wedge \dif q_i.
+\end{equation*}
 The Hamiltonian differential equation then becomes the \emph{Hamiltonian
   equations of motion}:
 % TODO could talk about the Math $4200$ two dimensional case of Hamiltonian vs
@@ -264,8 +301,10 @@ Following from this computation, we see that
 The Hamiltonian differential equation $\bp{x} = \sgrad H(\bp{x})$ is then given
 by
 \begin{align*}
-  q_1' = p_1 &\qquad p_1' = - \frac{q_1}{(q_1^2 + q_2^2)^{\frac{3}{2}}},\\
-  q_2' = p_2 &\qquad p_2' = -\frac{q_2}{(q_1^2 + q_2^2)^{\frac{3}{2}}}.
+  q_1' &= p_1\\
+  p_1' &= - \frac{q_1}{(q_1^2 + q_2^2)^{\frac{3}{2}}},\\
+  q_2' &= p_2\\
+  p_2' &= -\frac{q_2}{(q_1^2 + q_2^2)^{\frac{3}{2}}}.
 \end{align*}
 From here, we can recover the desired $\bdd{x} = - \frac{\bp{x}}{|\bp{x}|^3}$.
 
@@ -359,7 +398,62 @@ If we take $(\bp{q}_0, \bp{p}_0)$ to be the initial value and let $\omega =
 Note that in particular, each coordinate $p_1, \ldots p_n$ is conserved, and the
 trajectory is a linear motion on the torus $\T^n \times \{\bp{p}_0\}$.
 
-% TODO discuss more, perhaps using Louville's theorem
+Let's take a moment to consider the importance of this example.
+Indeed, this is the example that comes up whenever you are dealing with a
+mechanical system that has $n$ degrees of freedom and $n$ commuting conservation
+laws.
+To make this notion more precise, we discuss a theorem of Liouville.
+\begin{thm}[Liouville's Theorem]
+  Let $(X, \sigma)$ be a symplectic manifold of dimension $2n$.
+  Let
+  \begin{equation*}
+    f_1, \ldots, f_n : X \to \R
+  \end{equation*}
+  be $C^{\infty}$ functions such that pairwise, the Poisson brackets vanish,
+  that is, $\{f_i, f_j\} = 0$.
+  Suppose further that the set $X_0$ of equation
+  \begin{equation*}
+    f_1 = \cdots = f_n = 0
+  \end{equation*}
+  is compact, and that the $1$-forms $\dif f_i$ for $i = 1, \ldots, n$ are
+  linearly independent at all points of $X_0$.
+  Then one can choose coordinates $\bp{q}, \bp{p}$ on a neighborhood $X'$ of
+  $X_0$ that make the Hamiltonian system $(X', \sigma, f_1)$ isomorphic to a
+  neighborhood of the $0$ section in a standard completely integrable system.
+\end{thm}
+In the statement of this theorem, $(X, \sigma, H)$ is a standard completely
+integrable system if $X = T^*(\T^n)$ is the cotangent bundle of the torus with
+its canonical symplectic structure, and the Hamiltonian depends only on the
+variables $p_1, \ldots, p_n$.
+
+Liouville's Theorem can be applied to our toy solar system example.
+We consider the case of a single planet.
+The system has two degrees of freedom, so we need two conservation laws.
+The first one is the function
+\begin{equation*}
+  H \left( \pt{q_1\\q_2}, \pt{p_1\\p_2} \right) = \frac{1}{2}(p_1^2 + p_2^2) -
+  \frac{1}{(q_1^2 + q_2^2)^{\frac{1}{2}}}.
+\end{equation*}
+For the second conservation law we take the function
+\begin{equation*}
+  M = q_1 p_2 - q_2 p_1.
+\end{equation*}
+Then we have that we have a conservation law by computing
+\begin{align*}
+  M' &= q_1' p_2 + q_1 p_2' - \left( q_2' p_1 + q_2 p_1' \right)\\
+     &= q_1' p_2 + q_1 p_2' - q_2' p_1 - q_2 p_1'\\
+     &= p_1 p_2 + q_1 \frac{q_2}{(q_1^2 + q_2^2)^{\frac{3}{2}}} - p_2 p_1 - q_2
+       \frac{q_1}{(q_1^2 + q_2^2)^{\frac{3}{2}}} = 0.
+\end{align*}
+
+Finally we check that the conservation functions $H$ and $M$ commute, that is,
+that their Poisson bracket is zero.
+\begin{align*}
+  \{H, M\} &= \pd{H}{q_1} \pd{M}{p_1} - \pd{H}{p_1} \pd{M}{q_1} + \pd{H}{q_2}
+             \pd{M}{p_2} - \pd{H}{p_2} \pd{M}{q_2}\\
+  &= q_1\frac{q_2}{(q_2^2 + q_2^2)^{\frac{3}{2}}} - p_1 p_2 + q_2
+    \frac{p_1}{(q_1^2 + q_2^2)^{\frac{3}{2}}}.
+\end{align*}
 
 \section{Irrationality}
 \label{sec:irrationality}
@@ -576,7 +670,9 @@ system.
   Then there exists $\epsilon > 0$ such that, if the planets are given masses
   $m_i < \epsilon$, there exists a trajectory $\bp{x}(t)$ of the perturbed
   system dense on a torus $T$ and a homeomorphism $\Phi : T \to T_1$ such that
-  $\Phi(\bp{x}(t)) = \bp{x}_1(t)$.
+  \begin{equation*}
+    \Phi(\bp{x}(t)) = \bp{x}_1(t).
+  \end{equation*}
 
   The set of such trajectories is of positive measure in the set of all
   trajectories.
@@ -673,7 +769,7 @@ For completeness, let's state this theorem.
   \begin{align*}
     C &= \frac{1 - k}{2(1 - 2k)}\norm{[\Dif f(\bp{x}_0)]^{-1}} M,\\
     \bp{x}_{i+1} &= \bp{x}_i + h_im\\
-    h_{i+1} &= -[\Dif f(\bp{x}_i)]^{-1} f(\bp{x}_i),\\
+    h_{i+1} &= -[\Dif f(\bp{x}_i)]^{-1} f(\bp{x}_i),
   \end{align*}
   then $\norm{h_{i+1}} \leq C \norm{h_i}^2$.
 \end{thm}
@@ -688,7 +784,7 @@ In solving for the diffeomorphism $\Phi$ in the proof of Kolmogorov's theorem,
 we will be using a similar technique to Newton's method.
 Where with Newton's method we needed a bound on the second derivative, we will
 need some type of analogous condition for our iterative process.
-We need some way to measure ``size,'' that is, we ned to choose a norm for our
+We need some way to measure ``size,'' that is, we need to choose a norm for our
 functions.
 
 First let's recall the definition of a Banach algebra.
@@ -713,9 +809,8 @@ Here we use the normal absolute value as the standard Euclidean norm on $\C^n$.
 
 We consider three regions:
 % TODO use these somewhere useful
-\domains{}
-Denote by $\mathcal{B}_{\rho}$, $\mathcal{C}_{\rho}$, and $\mathcal{A}_{\rho}$
-the corresponding Banach algebras.
+\domains{}Denote by $\mathcal{B}_{\rho}$, $\mathcal{C}_{\rho}$, and
+$\mathcal{A}_{\rho}$ the corresponding Banach algebras.
 We can expand elements of $\mathcal{B}_{\rho}$ as power series, and elements of
 $\mathcal{C}_{\rho}$ as Fourier series:
 \begin{equation*}
@@ -830,9 +925,10 @@ by the resulting inequalities.
 So suppose that $\{g, \tilde{h}_1\}$ is of order $2$ since $g$ and $\tilde{h}_1$
 are both small.
 Then the linear equation that we need to solve is
-\begin{equation*}
+\begin{equation}
+  \label{eq:dio-diff-first}
   \tilde{h}_1 + \{g, \tilde{h}_0\} \in o(|\bp{p}|).
-\end{equation*}
+\end{equation}
 Thus we need to solve this \emph{Diophantine differential equation}.
 Our ability to solve it relies on the Diophantine vectors that we saw previously
 in \cref{sec:irrationality}.
@@ -977,10 +1073,9 @@ Let's return to our previous equation
 \begin{equation*}
   h_1 + \{g, h_0\} \in O(|\bp{p}|^2).
 \end{equation*}
-% TODO reference first equation
-This equation is the Diophantine differential equation that we had before, but
-without tildes and with $o(|\bp{p}|)$ replaced by $O(|\bp{p}|^2)$, which is
-equivalent since our functions are analytic.
+This equation is the Diophantine differential equation that we had before in
+\cref{eq:dio-diff-first}, but without tildes and with $o(|\bp{p}|)$ replaced by
+$O(|\bp{p}|^2)$, which is equivalent since our functions are analytic.
 The unknown is $g$, which we take to be degree $1$ in $\bp{p}$:
 \begin{equation*}
   g = \lambda \bp{q} X(\bp{q}) + \sum_{i=1}^n Y_i(\bp{q}) p_i.
@@ -1037,7 +1132,6 @@ analogous to how we would need to bound the second derivative is we were to
 apply Kantorovitch's Theorem when using Newton's Method.
 And we need the Diophantine vectors in order to avoid dividing by zero when
 solving for our Fourier coefficients.
-% TODO what have we missed
 
 The proof by Hubbard and Ilyshenko in \cite{hi02} is quite short, and solely by
 following it without considering the work before it we may miss out on what make
@@ -1047,9 +1141,9 @@ useful.
 We can tell that the proof is difficult merely by the fact that Moser's proof,
 given in %TODO cite
 involves functions that are $333$ times differentiable.
+% TODO concluding paragraph
 
 % TODO add works to bibliography and update references throughout paper
-% TODO add Lee's Smooth Manifolds as a reference
 \nocite{*}
 \bibliographystyle{plain}
 \bibliography{bibliography}
