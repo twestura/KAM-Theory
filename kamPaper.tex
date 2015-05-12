@@ -1,4 +1,4 @@
-\documentclass[twoside,letterpaper,10pt]{article}
+\documentclass[twoside,letterpaper,11pt]{article}
 
 \usepackage{mystyle}
 \newcommand{\sgrad}{\nabla_{\sigma}}
@@ -41,7 +41,7 @@
 % I know that I'm not supposed to use a citation in an abstract, but Hubbard
 % did so in his paper, so I guess it is fair game.
 \begin{abstract}
-  This paper discusses a proof of the Kolmogorov Theorem on the conservation of
+  This paper discusses a proof of Kolmogorov's Theorem on the conservation of
   invariant tori.
   We follow the approach given by Hubbard and Ilyashenko in \cite{hi02}.
   Their proof is influenced by the one given by Bennettin, Galgani, Giorgilli,
@@ -52,12 +52,14 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Andrey Kolmogorov announced an important theorem in the International Congress
-of Mathematicians in $1954$.
+Andrey Kolmogorov announced an important theorem about the conservation of
+invariant tori in the International Congress of Mathematicians in $1954$
+\cite{kol54}.
 However, he never wrote down a proof of this theorem.
 Vladimir Arnold give a proof in $1963$, and J{\"u}rgen Moser proved a related
 result in $1962$.
-The resulting theory is called KAM Theory, named after the three of them.
+The resulting theory is therefore called KAM Theory, named after the three of
+them.
 
 Arnold recalls in \cite{a97} how Kolmogorov had been considering the problem
 since he was a child.
@@ -69,11 +71,10 @@ This theorem was born out of this period.
 
 While Kolmogorov never wrote down a proof, many others did, or at least
 attempted to.
-As already noted, Arnold wrote a proof in $1963$ and Moser proved a related
-result in $1962$.
+As already noted, Arnold wrote a proof \cite{a63} in $1963$ and Moser proved a
+related result \cite{mos62} in $1962$.
 But the proof is quite difficult, as Arnold's original argument was over $60$
 pages and quite difficult to understand.
-% TODO cite Kolmorogrov' conference, Arnold's proof, and Moser's proof
 The argument with which we concern ourselves is given by Hubbard and Ilyshenko
 in \cite{hi02}.
 This proof, while still containing many messy, technical details, is much
@@ -92,8 +93,6 @@ We will return to this statement after building up some intuition for it.
 For now, let's just note that the proof involves solving \cref{eq:sdiffeo} for
 the symplectic diffeomorphism $\Phi$.
 
-In this paper we will follow the proof given by Hubbard and Ilyshenko given in
-\cite{hi02}.
 We will begin by examining a toy example of the solar system, to which we will
 apply the theorem.
 This example will help us in understanding the statement of the theorem and the
@@ -103,7 +102,7 @@ vectors while examining this example.
 Then we will begin examining the technique of the proof and examine the role
 played by analytic functions.
 Finally we will put all of this together and explain the main ideas of the
-proof, leaving out some of the messy, technical details.
+proof, while leaving out some of the more messy, technical details.
 
 \section{A Motivating Example}
 \label{sec:motivating-example}
@@ -111,17 +110,19 @@ proof, leaving out some of the messy, technical details.
 To start understanding the theorem, let's consider an example to which we would
 like to apply it.
 While staring up at the night sky, one might be driven to wonder, ``Why do the
-planets orbit around the sun and not just crash into the sun or fly off by
-themselves in their own directions?''
+planets orbit around the sun and not just crash into it or fly off by themselves
+in their own directions?''
 Kolmogorov's Theorem gives us a method to attempt to answer this question.
 
 Let's start by discussing a simplified model of our solar system.
 In this model we will assume that planets have zero mass.
 This assumption is reasonable, as the masses of the planets are extremely small
 compared to that of the sun.
+Indeed, the sun is so massive compared to the planets that Jupiter and the sun
+orbit around a point that is located inside of the surface of the sun.
 Thus we may, at least for the moment, consider these masses to be negligible.
 
-A system with $n$ bodies, each with a mass $m_i$ and a position $\bp{x}_i$
+A system with $n$ bodies, each with a mass $m_i$ and a position $\bp{x}_i$,
 satisfies Netwon's second law: $\bp{F} = m \bp{a}$.
 For each $i$, we have
 \begin{equation*}
@@ -177,13 +178,17 @@ We then have
 In particular we can note that this system is stable.
 Over time, it will never diverge far from its present state.
 
-% TODO expand on the discussion of the solar system
+This model will serve as an example to which we apply the properties of
+Hamiltonian Mechanics that are discussed in \cref{sec:hamilt-mech}.
+Kolmogorov's theorem will then be applied in the context of this example in
+\cref{sec:kam-solar-system}.
 
 \section{Hamiltonian Mechanics}
 \label{sec:hamilt-mech}
 
 We will need to consider Hamiltonian mechanics in our study of the KAM Theorem.
-Hamiltonian mechanics is a reformulation of Newtonian mechanics.
+Hamiltonian mechanics is a reformulation of Newtonian mechanics, named for
+William Rowan Hamilton.
 The theories produce the same results, but often one of them is a more
 convenient formulation for some problems than is the other.
 
@@ -308,7 +313,7 @@ by
 \end{align*}
 From here, we can recover the desired $\bdd{x} = - \frac{\bp{x}}{|\bp{x}|^3}$.
 
-Now let's again consider the Hamiltonian Differential Equation
+Now let's again consider the Hamiltonian differential equation given by
 \cref{eq:hamiltonian-diff-eq}.
 The vector field $\sgrad f$ has a flow that we denote by $\phi_f^t$.
 This flow has two properties:
@@ -321,21 +326,24 @@ We will be constructing a symplectic diffeomorphism and will need the flows of
 Hamiltonian functions to do so.
 
 Further, in our proof we will be constructing Taylor polynomials of functions of
-the form $t \mapsto g \circ \phi_f^t$.
+the form
+\begin{equation*}
+  t \mapsto g \circ \phi_f^t.
+\end{equation*}
 To perform this construction, we will use the Poisson bracket.
 \begin{defn}[Poisson Bracket]
-  Let $f$ and $g$ be two function on $X$.
+  Let $f$ and $g$ be two functions on $X$.
   The Poisson bracket, denoted $\{f, g\}$, is defined by
   \begin{equation*}
     \{f, g\} = \sigma(\sgrad f, \sgrad g) = \dif f(\sgrad g) = - \dif g(\sgrad
  f).
   \end{equation*}
 \end{defn}
-We say that two functions $f$ and $g$ commute if the Poisson bracket is zero:
+We say that two functions $f$ and $g$ commute if their Poisson bracket is zero:
 \begin{equation*}
   \{f, g\} = 0.
 \end{equation*}
-This implies that their flows also commute:
+The functions' commuting implies that their flows also commute:
 \begin{equation*}
   \phi_f(s) \circ \phi_g(t) = \phi_g(t) \circ \phi_f(s).
 \end{equation*}
@@ -359,6 +367,8 @@ the Lie bracket is the symplectic gradient of the Poisson bracket.
   \begin{equation*}
     \{\{f, g\}, h\} + \{\{g, h\}, f\} + \{\{h, f\}, g\} = 0.
   \end{equation*}
+  This identity can itself be proved by a messy computation.
+
   Given a function $h$, we can compute
   \begin{align*}
     \dif h([\sgrad f, \sgrad g]) &= \dif (\dif h (\sgrad h)) (\sgrad f) - \dif
@@ -371,6 +381,7 @@ the Lie bracket is the symplectic gradient of the Poisson bracket.
                                  &= \dif h (\sgrad \{f, g\}).
   \end{align*}
 \end{proof}
+
 As an example of a Poisson bracket, let's consider again the Hamiltonian
 equations of motion (\cref{eq:hamiltonian-motion-eq}).
 The Poisson bracket is calculated by
@@ -438,7 +449,7 @@ For the second conservation law we take the function
 \begin{equation*}
   M = q_1 p_2 - q_2 p_1.
 \end{equation*}
-Then we have that we have a conservation law by computing
+Then we check that we have a conservation law by computing
 \begin{align*}
   M' &= q_1' p_2 + q_1 p_2' - \left( q_2' p_1 + q_2 p_1' \right)\\
      &= q_1' p_2 + q_1 p_2' - q_2' p_1 - q_2 p_1'\\
@@ -452,8 +463,23 @@ that their Poisson bracket is zero.
   \{H, M\} &= \pd{H}{q_1} \pd{M}{p_1} - \pd{H}{p_1} \pd{M}{q_1} + \pd{H}{q_2}
              \pd{M}{p_2} - \pd{H}{p_2} \pd{M}{q_2}\\
   &= q_1\frac{q_2}{(q_2^2 + q_2^2)^{\frac{3}{2}}} - p_1 p_2 + q_2
-    \frac{p_1}{(q_1^2 + q_2^2)^{\frac{3}{2}}}.
+    \frac{p_1}{(q_1^2 + q_2^2)^{\frac{3}{2}}} + p_1 p_2\\
+  &= 0.
 \end{align*}
+
+One last result to note is that of Darboux.
+Riemannian manifolds have local geometry, and various curvatures are local
+invariants of this geometry.
+Symplectic forms have no local invariants.
+\begin{thm}[Darboux's Theorem]
+  Let $(X, \sigma)$ be a symplectic manifold of dimension $2n$.
+  Suppose that $\bp{x} \in X$.
+  Then there exists an open neighborhood $U \subseteq X$ containing $\bp{x}$ and
+  a diffeomorphism $\Psi : U \to \R^{2n}$ with $\Psi(\bp{x}) = 0$ such that
+  \begin{equation*}
+    \Psi^* \left( \sum_{i} \dif q_i \wedge \dif p_i \right) = \sigma.
+  \end{equation*}
+\end{thm}
 
 \section{Irrationality}
 \label{sec:irrationality}
@@ -487,7 +513,10 @@ However, as we learn in our introductory courses in real analysis, the rationals
 are dense in the reals, and every real number, specifically every irrational
 number $\theta$, may be approximated arbitrarily closely by the rationals.
 More precisely, given any real $\epsilon > 0$, there exists a rational number
-$\frac{p}{q}$ such that $\left| \theta - \frac{p}{q} \right| < \epsilon$.
+$\frac{p}{q}$ such that
+\begin{equation*}
+  \left| \theta - \frac{p}{q} \right| < \epsilon.
+\end{equation*}
 Thus trying to coerce $\left| \theta - \frac{p}{q} \right|$ to be big is quite
 impossible.
 
@@ -547,6 +576,27 @@ $\epsilon > 0$ they form a set of full measure.
   Hence the claim holds.
 \end{proof}
 
+Before moving on, let's note that for an example of a Diophantine number, one
+can consider the golden mean $\phi = \frac{1 + \sqrt{5}}{2}$.
+% TODO make the second observation about transcendental numbers
+Also, there is a result from Liouville that stats that an irrational is
+transcendental if it is too well approximated by rationals.
+A number $\theta$ is \emph{algebraic of degree $d$} if it satisfies an equation
+\begin{equation*}
+  a_d \theta^d + \cdots + a_0 = 0,
+\end{equation*}
+where $a_d \neq 0$ and the coefficients are integers.
+If a number $\theta$ is algebraic, then there exists a constant $\gamma > 0$
+such that for every pair of coprime integers, we have
+\begin{equation*}
+  \left| \theta - \frac{p}{q} \right| > \frac{\gamma}{q^d}.
+\end{equation*}
+This further leads to the deduction that the number
+\begin{equation*}
+  \sum_{n=0}^{\infty} 10^{-n!} = 0.110001000000000000000001...
+\end{equation*}
+is transcendental.
+
 Having this definition for numbers, we want to extend ``irrationality'' to
 vectors.
 As an example, we can consider the solar system with the vector $\omega =
@@ -563,7 +613,7 @@ We could rewrite the condition in the definition as
   \label{eq:diovec}
   \bp{k} \cdot \omega \geq \frac{\gamma}{|\bp{k}|^n}.
 \end{equation}
-Also, we will often drop then $n$ from out notation and write simply
+Also, we will often drop then $n$ from our notation and write simply
 $\Omega_{\gamma}$ instead of $\Omega_{\gamma}^n$ when it is clear that we are
 working in $\R^n$.
 
@@ -699,12 +749,12 @@ Take another look at the statement of the theorem.
 We will concern ourselves with \cref{eq:sdiffeo}.
 Here we have $H = h \circ \Phi$, where $\Phi$ is a symplectic diffeomorphism.
 Our proof will involve solving for this diffeomorphism $\Phi$.
-% TODO discuss the equations that we are solving
-% Or maybe leave this to the main idea of the proof section
 
 We need a tool for solving equations, and the tool that we use is similar to
 Newton's Method.
-So let's take a moment first to consider what goes on to using Newton's Method.
+We will construct $\Phi$ as a limit of $\Phi_i$, where the $\Phi_i$ are
+constructed using an iterative process.
+So let's take a moment first to consider what goes in to using Newton's Method.
 
 Newton's Method can be used to solve an equation $f(\bp{x}) = 0$.
 The process involves choosing an initial guess $\bp{x}_0$.
@@ -715,14 +765,16 @@ Then successive points $\bp{x}_i$ are defined by
 These points $\bp{x}_{i+1}$ will, under ``good'' conditions, converge to a
 solution to the equation.
 
+To see why some additional conditions are necessary, consider the function $f(x)
+= x^3 - x + \frac{\sqrt{2}}{2}$.
 \begin{wrapfigure}{o}{0.5\textwidth}
   \begin{center}
     \includegraphics[width=0.48\textwidth]{newtonfail}
   \end{center}
   \caption{$f(x) = x^3 - x + \frac{\sqrt{2}}{2}$}
 \end{wrapfigure}
-To see why some additional conditions are necessary, consider the function $f(x)
-= x^3 - x + \frac{\sqrt{2}}{2}$.
+We will select a ``bad'' initial guess such that if we start Newton's Method
+from this guess, we will never converge to a solution.
 Let our initial guess be $x_0 = 0$.
 Note that this function has derivative $f'(x) = 3x^2 - 1$.
 Thus plugging in our initial guess gives us
@@ -734,8 +786,8 @@ But then we encounter a problem once we use $x_1$ to determine $x_2$.
   x_2 = x_1 - \frac{1}{f'(x_1)} f(x_1) = 0.
 \end{equation*}
 This brings us back to our initial guess!
-So now Netwon's method will oscillate between $0$ and $\frac{\sqrt{2}}{2}$ and
-will not converge to a solution.
+So now Netwon's method will oscillate between $0$ and $\frac{\sqrt{2}}{2}$, and
+it will not converge to a solution.
 
 The additional conditions that we need for the convergence of Newton's Method
 are given in a theorem by Kantorovitch.
@@ -748,8 +800,12 @@ For completeness, let's state this theorem.
   F$ be $C^1$.
   Suppose that $\bp{x}_0 \in U$ is a point where $[\Dif f(\bp{x}_0)] : E \to F$
   is an isomorphism.
-  Set $h_0 = -[\Dif f(\bp{x}_0)]^{-1}(f(\bp{x}_0))$, $\bp{x}_1 = \bp{x}_0 +
-  h_0$, and define the ball $U_0 = B_{\norm{h_0}}(\bp{x}_1)$.
+  Set
+  \begin{align*}
+    h_0 &= -[\Dif f(\bp{x}_0)]^{-1}(f(\bp{x}_0)),\\
+    \bp{x}_1 &= \bp{x}_0 + h_0,\\
+    U_0 &= B_{\norm{h_0}}(\bp{x}_1).
+  \end{align*}
   Then if the following hold:
   \begin{enumerate}
   \item $U_0 \subset U$
@@ -899,8 +955,8 @@ We write $\tilde{h} = \tilde{h}_0 + \tilde{h}_1$, where
   constant in $\bp{q}$,
 \item $\tilde{h}_0$ is everything else.
 \end{itemize}
-We would like to eliminate $\tilde{h}_1$, be we won't be able to do so by
-solving a linear equation.
+We would very much like to eliminate $\tilde{h}_1$, but we won't be able to do
+so by solving a linear equation.
 Instead we will solve a linear equation for a function $g$ such that
 $\phi_g^*\tilde{h}$ is ``better'' than $\tilde{h}$, in some reasonable sense of
 ``better.''
@@ -929,18 +985,23 @@ Then the linear equation that we need to solve is
   \label{eq:dio-diff-first}
   \tilde{h}_1 + \{g, \tilde{h}_0\} \in o(|\bp{p}|).
 \end{equation}
-Thus we need to solve this \emph{Diophantine differential equation}.
+Thus we need to solve this \emph{Diophantine partial differential equation}.
 Our ability to solve it relies on the Diophantine vectors that we saw previously
 in \cref{sec:irrationality}.
+Recall that we have the hypothesis $\omega \in \Omega_{\gamma}$ in the statement
+of the theorem.
+This hypothesis gives us the irrationality that is required for
+\cref{eq:dio-diff-first} to have a solution.
 
 \section{Diophantine Differential Equations}
 \label{sec:dioph-diff-equat}
 
 Let $g \in \mathcal{C}_{\rho}$.
 We are going to be solving linear equations of the form
-\begin{equation*}
+\begin{equation}
+  \label{eq:dio-form}
   \Dif f(\omega) = \sum_{i = 1}^n \omega_i \pd{f}{q_i} = g,
-\end{equation*}
+\end{equation}
 with $f \in \mathcal{C}_{\rho'}$ for some $\rho' < \rho$.
 Recall, as was mentioned in \cref{sec:analytic-functions}, that since $f \in
 \mathcal{C}_{\rho'}$ and $g \in \mathcal{C}_{\rho}$, we can write $f$ and $g$ as
@@ -959,22 +1020,32 @@ We need $g_0$ to be zero.
 Then $f_0$ is arbitrary, and otherwise the series for $f$ is unique.
 
 Take note of the $(\bp{k} \cdot \omega)$ in the denominator of \cref{eq:dio-sol}
-and compare this to \cref{eq:diovec}.
+and compare this expression to our definition of a Diophantine vector in to
+\cref{eq:diovec}.
 Dividing by zero in \cref{eq:dio-sol} would mean that there is no solution.
 So we need the Diophantine condition for the vector $\omega$ to ensure that we
 do not divide by zero in \cref{eq:dio-sol}.
 Hence the convergence properties of $f$ depend on the Diophantine properties of
 $\omega$.
+Without this condition, we would be unable to find solutions to these equations.
 
 But even though this condition gives us convergence for $\rho$, we might not
 have boundedness.
 So we need some $\rho' < \rho$ where we have boundedess.
 But we must choose $\rho'$ large enough so that the limit is nonempty.
+Thus we have a trade off.
+We must be able to pick $\rho'$ correctly in order for our iterative method of
+solving the equation converges to a solution.
 Thus the choice of $\rho'$ must be done rather ``carefully.''
+We will avoid writing out all of the details and instead direct the reader to
+\cite{hi02}.
+But we will develop the proposition that we need for choosing this $\rho'$, and
+in \cref{sec:solving-equations} we will see how to use it.
 
-We will use the following tool for choosing $\rho'$.
-% TODO name proposition
+The following tool, which we then prove, is what we use for making our careful
+choice of $\rho'$.
 \begin{prop}
+  \label{prop:tool}
   If $g \in \mathcal{C}_{\rho}$ and $\epsilon \in \Omega_{\gamma}$, then for all
   $\delta$ such that $0 < \delta < \rho$, we have the following two
   inequalities:
@@ -1045,6 +1116,11 @@ We will use the following tool for choosing $\rho'$.
     \sum_{\bp{k} \in \Z^n} |\bp{k}|^n \e^{-2 \i |\bp{k}|\delta} \leq
     \frac{\kappa_n'}{(2 \pi \delta)^{2n}}.
   \end{equation*}
+  We now have
+  \begin{equation*}
+    \norm{f}_{\rho - \delta} \leq \frac{\kappa_n}{(2 \pi \delta)^{2n}}
+    \frac{\norm{g}_{\rho}}{2 \pi \gamma}.
+  \end{equation*}
   Thus we are finished with the $f$ part of the proof.
 
   The $\Dif f$ part of the proof is similar.
@@ -1058,6 +1134,12 @@ We will use the following tool for choosing $\rho'$.
     |\Dif(\bp{q})(\bp{u})| \leq \frac{|\bp{u}| \norm{g}_{\rho}
       \kappa_n''}{\gamma(2 \pi \gamma)^{n+1}}.
   \end{equation*}
+  Analogous to the first part of the proof, the integral
+  \begin{equation*}
+    \int_{\R^n} |\bp{x}|^{n+1} \e^{-|\bp{x}| |\dif^n\bp{x}|}
+  \end{equation*}
+  is convergent.
+  Thus $\kappa_n''$ exists.
 
   To complete the proof of the proposition, take
   \begin{equation*}
@@ -1078,7 +1160,7 @@ This equation is the Diophantine differential equation that we had before in
 $O(|\bp{p}|^2)$, which is equivalent since our functions are analytic.
 The unknown is $g$, which we take to be degree $1$ in $\bp{p}$:
 \begin{equation*}
-  g = \lambda \bp{q} X(\bp{q}) + \sum_{i=1}^n Y_i(\bp{q}) p_i.
+  g = \lambda \bp{q} + X(\bp{q}) + \sum_{i=1}^n Y_i(\bp{q}) p_i.
 \end{equation*}
 Note that only the linear terms of $g$ contribute to the linear terms of $\{g,
 h_0\}$.
@@ -1103,44 +1185,114 @@ We then have
 \end{equation*}
 
 We need to solve the equations
-\begin{align*}
+\begin{align}
+  \label{eq:fst-to-solve}
   \Dif X(\bp{q}) (\omega) &= - A(\bp{q})\\
+  \label{eq:snd-to-solve}
   \Dif Y(\bp{q}) (\omega) &= -B(\bp{q}) - \big(\lambda + \Dif
      X(\bp{q})\big)C(\bp{q})
-\end{align*}
+\end{align}
 for $X$ and $Y_i$, $i = 1, \ldots, n$.
 These are Diophantine differential equations.
-Since we have the hypothesis $\overline{A} = 0$, we can solve the first equation
-and find $X \in \mathcal{C}_{\rho'}$ for all $\rho' < \rho$.
+To see this, let's write these in the form of \cref{eq:dio-form}, which we have
+already discussed how to solve.
+
+For \cref{eq:fst-to-solve}, we can write
+\begin{equation*}
+  \sum_i \omega_i \pd{X}{q_i} = -A(\bp{q}).
+\end{equation*}
+Second, we note that \cref{eq:snd-to-solve}, consists of $n$ differential
+equations.
+These equations can be written in the form
+\begin{equation*}  
+  \sum_i \omega_i \pd{Y_i}{q_i} = -B_j(\bp{q}) - \sum_i C_{i,j}(\bp{q}) \left(
+  \lambda_i + \pd{X}{q_i} \right).
+\end{equation*}
+We will solve the first equation, \cref{eq:fst-to-solve}, and then plug in this
+solution to help solve \cref{eq:snd-to-solve}.
+
+Since we have the hypothesis $\overline{A} = 0$, we can solve the first
+equation.
+We can find a unique $X$ such that $\overline{X} = 0$ and that for all $\delta$
+with $0 < \delta < \rho$, the bounds
+\begin{align*}
+  \norm{X}_{\rho - \delta} &\leq \frac{\kappa_n \epsilon}{\gamma \delta^{2n}},\\
+  \norm{\Dif X}_{\rho - \delta} &\leq \frac{\kappa_n \epsilon}{\gamma
+                   \delta^{2n+1}},
+\end{align*}
+are satisfied.
+
+Now we want to solve \cref{eq:snd-to-solve}.
+In order to solve it, we need its right hand side to be zero.
+For this we need to choose $\lambda$.
+Set
+\begin{equation*}
+  \lambda = - \overline{C}^{\,-1} \overline{(B + (DX)C)}.
+\end{equation*}
+Then we have
+\begin{equation*}
+  \norm{B - (DX)C}_{\rho - \delta} \leq \epsilon + \frac{\kappa_n \epsilon}{m
+    \gamma \delta^{2n+1}} \leq \frac{2 \kappa_n \epsilon}{m \gamma \delta^{2n +
+  1}}.
+\end{equation*}
+This inequality gives us
+\begin{equation*}
+  |\lambda| \leq \frac{2\kappa_n \epsilon}{m^2 \gamma \rho^{2n+1}} \leq \frac{2
+    \kappa_n \epsilon}{m \gamma \delta^{2n + 2}}.
+\end{equation*}
+From here we get
+\begin{align*}
+  \norm{B - (\lambda + DX)C}_{\rho - \delta}
+  &\leq \norm{B - (DX)C}_{\rho - \delta} + \norm{\lambda C}_{\rho - \delta}\\
+  &\leq \frac{2 \kappa_n \epsilon}{m \gamma \delta^{2n + 1}} + \frac{2\kappa_n
+    \epsilon}{m^3 \gamma \delta^{2n+1}}\\
+  &\leq \frac{4 \kappa_n \epsilon}{m^3 \gamma \delta^{2n+1}}.
+\end{align*}
+Now we use the tool that we developed in the form of \cref{prop:tool}.
+This proposition allows us to fund $Y \in \mathcal{C}_{\rho - 2\delta}^n$ such
+that $\overline{Y} = 0$ and that the following estimates are satisfied:
+\begin{align*}
+  \norm{Y}_{\rho - 2\delta} &\leq \frac{4\kappa_n^2 \epsilon}{m^3 \gamma^2
+                              \delta^{4n+1}}\\
+  \norm{\Dif Y}_{\rho - 2\delta} &\leq \frac{4\kappa_n^2 \epsilon}{m^3 \gamma^2
+                    \delta^{4n+2}}.
+\end{align*}
+
+Let's summarize what we have done to solve these equations.
+These equations are Diophantine differential equations.
+The hypothesis $\overline{A} = 0$ allows us to solve \cref{eq:fst-to-solve} and
+to find $X \in \mathcal{C}_{\rho'}$ for all $\rho' < \rho$.
 We then substitute into the second equation.
-We can then determine $\lambda$ since the averages of the right-hand sides in
+We can then determine $\lambda$ so that the averages of the right-hand sides in
 the $n$ are all zero.
-Then we can colve the second equation and find $Y_i \in \mathcal{C}_{\rho''}$
+Then we can solve the second equation and find $Y_i \in \mathcal{C}_{\rho''}$
 for all $\rho'' < \rho'$.
 Iterating the process requires choosing $\rho'$ and $\rho''$ ``carefully.''
-
+The remaining details are left to \cite{hi02}.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-With everything that we have discussed, the statement of Kolmogorov's Theorem
-should now be very much readable.
-We have an equation that we solve for a diffeomorphism.
-This equation is solved iteratively using an analogue of Newton's Method.
-We used analytic functions in order for this technique to converge properly,
-analogous to how we would need to bound the second derivative is we were to
-apply Kantorovitch's Theorem when using Newton's Method.
-And we need the Diophantine vectors in order to avoid dividing by zero when
-solving for our Fourier coefficients.
-
-The proof by Hubbard and Ilyshenko in \cite{hi02} is quite short, and solely by
-following it without considering the work before it we may miss out on what make
-it so succinct, and why the simplifications that it makes are so powerful and
-useful.
+The proof by Hubbard and Ilyshenko in \cite{hi02} is considerably shorter than
+many previous proofs, and solely by following it without considering the work
+before it we may miss out on what make it so useful, and why the ideas it
+contains are so powerful.
 % TODO cite Arnold's original proof and many other proofs of the theorem
 We can tell that the proof is difficult merely by the fact that Moser's proof,
 given in %TODO cite
 involves functions that are $333$ times differentiable.
+
+With everything that we have discussed, the statement of Kolmogorov's Theorem
+should now be very much readable, and the main ideas of the proof should be
+understandable.
+We have an equation that we solve for a diffeomorphism.
+This equation is solved iteratively using an analogue of Newton's Method.
+We used analytic functions in order for this technique to converge properly,
+analogous to how we would need to bound the second derivative if we were to
+apply Kantorovitch's Theorem when using Newton's Method.
+And we need the Diophantine vectors in order to avoid dividing by zero when
+solving for our Fourier coefficients.
+
 % TODO concluding paragraph
 
 % TODO add works to bibliography and update references throughout paper
