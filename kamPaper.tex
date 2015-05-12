@@ -258,8 +258,6 @@ Our symplectic form will be given by
 \end{equation*}
 The Hamiltonian differential equation then becomes the \emph{Hamiltonian
   equations of motion}:
-% TODO could talk about the Math $4200$ two dimensional case of Hamiltonian vs
-% gradient systems
 \begin{equation}
   \label{eq:hamiltonian-motion-eq}
   \begin{aligned}
@@ -491,12 +489,12 @@ The set $\Omega_{\gamma}$ consists of vectors that are ``sufficiently
 irrational,'' a notion that we need to make more precise.
 
 Let's first consider the definition of an irrational number.
-If a real number $\theta$ is irrational, then for all pairs if integers $p$ and
-$q$, with $q$ positive, we have the following
+If a real number $\theta$ is irrational, then for all pairs of integers $p$ and
+$q$, with $q$ positive, we have the following:
 \begin{equation*}
   \left| \theta - \frac{p}{q} \right| \neq 0.
 \end{equation*}
-This equation tells us simply that there does not exist and rational number
+This equation tells us simply that there does not exist any rational number
 $\frac{p}{q}$ that equals our irrational number $\theta$.
 Here, the ``not equal to zero'' part of the equation will be stressed, as an
 expression similar to the one on the left hand side will later appear as the
@@ -509,9 +507,9 @@ any problems.
 Our condition of ``sufficiently irrational'' will mean that $\left| \theta -
   \frac{p}{q} \right|$ is ``sufficiently nonzero,'' or since we are using an
 absolute value, ``sufficiently big.''
-However, as we learn in our introductory courses in real analysis, the rationals
-are dense in the reals, and every real number, specifically every irrational
-number $\theta$, may be approximated arbitrarily closely by the rationals.
+However, the rationals are dense in the reals.
+Every real number, specifically every irrational number $\theta$, may be
+approximated arbitrarily closely by rationals.
 More precisely, given any real $\epsilon > 0$, there exists a rational number
 $\frac{p}{q}$ such that
 \begin{equation*}
@@ -537,7 +535,7 @@ prime to $q$ such that
   \left| \theta - \frac{p}{q} \right| < \frac{1}{\sqrt{5}q^2}.
 \end{equation*}
 We see that no number is Diophantine of any exponent smaller than $2$.
-And the number that are Diophantine of exponent exactly $2$ are precisely the
+And the numbers that are Diophantine of exponent exactly $2$ are precisely the
 numbers whose continued fractions have bounded entries.
 These numbers form a set of measure zero.
 
@@ -578,8 +576,7 @@ $\epsilon > 0$ they form a set of full measure.
 
 Before moving on, let's note that for an example of a Diophantine number, one
 can consider the golden mean $\phi = \frac{1 + \sqrt{5}}{2}$.
-% TODO make the second observation about transcendental numbers
-Also, there is a result from Liouville that stats that an irrational is
+Also, there is a result from Liouville that states that an irrational number is
 transcendental if it is too well approximated by rationals.
 A number $\theta$ is \emph{algebraic of degree $d$} if it satisfies an equation
 \begin{equation*}
@@ -587,7 +584,7 @@ A number $\theta$ is \emph{algebraic of degree $d$} if it satisfies an equation
 \end{equation*}
 where $a_d \neq 0$ and the coefficients are integers.
 If a number $\theta$ is algebraic, then there exists a constant $\gamma > 0$
-such that for every pair of coprime integers, we have
+such that for every pair of coprime integers $p$ and $q > 0$, we have
 \begin{equation*}
   \left| \theta - \frac{p}{q} \right| > \frac{\gamma}{q^d}.
 \end{equation*}
@@ -621,9 +618,9 @@ Again, we want to examine how common it is for such vectors to occur.
 We do not want just exceptional motions to be preserved, but rather we wish that
 most motions are preserved, and that we should not need to look hard to find
 such vectors.
-In the case of numbers, we have that satisfying answer that Diophantine numbers
+In the case of numbers, we have the satisfying answer that Diophantine numbers
 have full measure.
-We establish an analogous result for vectors, following a similar proof to the
+We establish an analogous result for vectors, following a proof similar to the
 one we have just seen.
 \begin{prop}[Diophantine Vectors are of Full Measure]
   The union over $\gamma > 0$ of sets of Diophantine vectors with constant
@@ -673,8 +670,6 @@ statement of Kolmogorov's Therorem.
 This requirement means that the vector $\omega$ must be ``suitably irrational,''
 and such vectors are rather ``common'' in the sense of Lebesgue.
 
-% TODO remark about Biare meagerness
-
 \section{KAM and the Solar System}
 \label{sec:kam-solar-system}
 
@@ -705,8 +700,6 @@ torus $T_1$.
 For the motions to be the same, we mean that $\bp{x}(t)$ is dense on the
 corresponding torus $T$ and that it fills in $T$ in the same way that $\bp{x}_1$
 fills in $T_1$.
-% TODO explain the fill in combinatorially part
-% Figure out what Matt had said
 That is, there exists a homeomorphism $\Phi : T \to T_1$ such that
 \begin{equation*}
   \Phi(\bp{x}(t)) = \bp{x}_1(t).
@@ -737,7 +730,6 @@ planets' frequency vector.
 However, there are refinements of the theorem that state that there may still
 exist stable motions where the ratios are rational.
 We will not pursue these refinements here.
-% TODO check up on these refinements
 
 \section{Analytic Functions}
 \label{sec:analytic-functions}
@@ -777,7 +769,7 @@ We will select a ``bad'' initial guess such that if we start Newton's Method
 from this guess, we will never converge to a solution.
 Let our initial guess be $x_0 = 0$.
 Note that this function has derivative $f'(x) = 3x^2 - 1$.
-Thus plugging in our initial guess gives us
+Plugging in our initial guess gives us
 \begin{equation*}
   x_1 = x_0 - \frac{1}{f'(x_0)} f(x_0) = \frac{\sqrt{2}}{2}.
 \end{equation*}
@@ -820,11 +812,11 @@ For completeness, let's state this theorem.
   \begin{equation*}
     \norm{f(\bp{x})} \norm{[\Dif f(\bp{x}_0)]^{-1}}^2 M = k < \frac{1}{2},
   \end{equation*}
-  Then the method is \emph{superconvergent}.
+  then the method is \emph{superconvergent}.
   That is, if we put
   \begin{align*}
     C &= \frac{1 - k}{2(1 - 2k)}\norm{[\Dif f(\bp{x}_0)]^{-1}} M,\\
-    \bp{x}_{i+1} &= \bp{x}_i + h_im\\
+    \bp{x}_{i+1} &= \bp{x}_i + h_im,\\
     h_{i+1} &= -[\Dif f(\bp{x}_i)]^{-1} f(\bp{x}_i),
   \end{align*}
   then $\norm{h_{i+1}} \leq C \norm{h_i}^2$.
@@ -862,9 +854,7 @@ interior and have the sup norm
 \end{equation*}
 Here we use the normal absolute value as the standard Euclidean norm on $\C^n$.
 
-
 We consider three regions:
-% TODO use these somewhere useful
 \domains{}Denote by $\mathcal{B}_{\rho}$, $\mathcal{C}_{\rho}$, and
 $\mathcal{A}_{\rho}$ the corresponding Banach algebras.
 We can expand elements of $\mathcal{B}_{\rho}$ as power series, and elements of
@@ -892,7 +882,6 @@ We will use Cauchy's Inequalities on Balls.
   \end{align*}
 \end{thm}
 \begin{proof}
-  % TODO expand on proof and include more details
   Take $\bp{z} \in B_{\rho - \delta}$ and $\bp{u} \in \C^n$.
   Since $B_{\delta}(\bp{z}) \subseteq B_{\rho}$, the function
   \begin{equation*}
@@ -935,8 +924,6 @@ Here, $\phi_i$ denotes the Hamiltonian flow $\phi_{g_i}$ for a Hamiltonian
 function $g_i$.
 This $g_i$ is the unknown for which we solve.
 
-% TODO pause and take a moment to reflect on how we went from a diffeomorphism
-% to a function.
 Let's take a moment to pause and reflect on what was just done.
 Instead of solving for a diffeomorphism $\Phi$, at each iteration we are solving
 for a Hamiltonian function $g_i$.
@@ -944,7 +931,6 @@ This simplification is rather important, as a diffeomorphism can be a rather
 complicated object.
 The $g_i$ are much easier to reason about.
 Furthermore, the map $\phi_{g_i}$ is itself a symplectic diffeomorphism.
-% TODO continue reflection
 
 At the $i$th iteration we have a Hamiltonian $\tilde{h} = \Phi_i^* h$.
 We expand $\tilde{h}$ up to order $2$ in $\bp{p}$, and the coefficients are
@@ -1024,14 +1010,14 @@ and compare this expression to our definition of a Diophantine vector in to
 \cref{eq:diovec}.
 Dividing by zero in \cref{eq:dio-sol} would mean that there is no solution.
 So we need the Diophantine condition for the vector $\omega$ to ensure that we
-do not divide by zero in \cref{eq:dio-sol}.
+do not divide by zero.
 Hence the convergence properties of $f$ depend on the Diophantine properties of
 $\omega$.
 Without this condition, we would be unable to find solutions to these equations.
 
 But even though this condition gives us convergence for $\rho$, we might not
 have boundedness.
-So we need some $\rho' < \rho$ where we have boundedess.
+So we need some $\rho' < \rho$ where we do in fact have boundedess.
 But we must choose $\rho'$ large enough so that the limit is nonempty.
 Thus we have a trade off.
 We must be able to pick $\rho'$ correctly in order for our iterative method of
@@ -1040,10 +1026,9 @@ Thus the choice of $\rho'$ must be done rather ``carefully.''
 We will avoid writing out all of the details and instead direct the reader to
 \cite{hi02}.
 But we will develop the proposition that we need for choosing this $\rho'$, and
-in \cref{sec:solving-equations} we will see how to use it.
+in \cref{sec:solving-equations} we will apply it.
 
-The following tool, which we then prove, is what we use for making our careful
-choice of $\rho'$.
+The following tool helps us to make our careful choice of $\rho'$.
 \begin{prop}
   \label{prop:tool}
   If $g \in \mathcal{C}_{\rho}$ and $\epsilon \in \Omega_{\gamma}$, then for all
@@ -1058,7 +1043,7 @@ choice of $\rho'$.
   Here, $\kappa_n$ is a constant that depends only on $n$.
 \end{prop}
 \begin{proof}
-  For $\bp{y} \in \R^n$ with $|\bp{y} \leq \rho$ (in particular $\bp{y} = \rho
+  For $\bp{y} \in \R^n$ with $|\bp{y}| \leq \rho$ (in particular $\bp{y} = \rho
   \frac{\bp{k}}{|\bp{k}|})$, the function
   \begin{equation*}
     \bp{q} \mapsto g(\bp{q} - \i \bp{y})
@@ -1249,7 +1234,7 @@ From here we get
   &\leq \frac{4 \kappa_n \epsilon}{m^3 \gamma \delta^{2n+1}}.
 \end{align*}
 Now we use the tool that we developed in the form of \cref{prop:tool}.
-This proposition allows us to fund $Y \in \mathcal{C}_{\rho - 2\delta}^n$ such
+This proposition allows us to find $Y \in \mathcal{C}_{\rho - 2\delta}^n$ such
 that $\overline{Y} = 0$ and that the following estimates are satisfied:
 \begin{align*}
   \norm{Y}_{\rho - 2\delta} &\leq \frac{4\kappa_n^2 \epsilon}{m^3 \gamma^2
@@ -1277,10 +1262,8 @@ The proof by Hubbard and Ilyshenko in \cite{hi02} is considerably shorter than
 many previous proofs, and solely by following it without considering the work
 before it we may miss out on what make it so useful, and why the ideas it
 contains are so powerful.
-% TODO cite Arnold's original proof and many other proofs of the theorem
 We can tell that the proof is difficult merely by the fact that Moser's proof,
-given in %TODO cite
-involves functions that are $333$ times differentiable.
+given in involves functions that are $333$ times differentiable.
 
 With everything that we have discussed, the statement of Kolmogorov's Theorem
 should now be very much readable, and the main ideas of the proof should be
@@ -1293,9 +1276,6 @@ apply Kantorovitch's Theorem when using Newton's Method.
 And we need the Diophantine vectors in order to avoid dividing by zero when
 solving for our Fourier coefficients.
 
-% TODO concluding paragraph
-
-% TODO add works to bibliography and update references throughout paper
 \nocite{*}
 \bibliographystyle{plain}
 \bibliography{bibliography}
